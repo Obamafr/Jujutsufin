@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.obama.jujutsufin.mixins",
+  "refmap": "mixins.jujutsufin.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  "MixinKeyChangeTechniqueOnKeyPressed2"
+  ],
+  "client": [],
+  "server": []
+}

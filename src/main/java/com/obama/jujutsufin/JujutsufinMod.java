@@ -1,0 +1,78 @@
+package com.obama.jujutsufin;
+
+import com.mojang.logging.LogUtils;
+import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
+import com.obama.jujutsufin.init.JujutsufinGUI;
+import com.obama.jujutsufin.init.JujutsufinItems;
+import com.obama.jujutsufin.init.JujutsufinKeybinds;
+import com.obama.jujutsufin.world.KenjakuCopiesMenu;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
+import org.slf4j.Logger;
+
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+@Mod(JujutsufinMod.MODID)
+public class JujutsufinMod
+{
+    public static final String MODID = "jujutsufin";
+    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final SimpleChannel PACKETHANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation("jujutsufin", "main"), () -> "1", "1"::equals, "1"::equals);
+    private static int ID = 0;
+
+    public JujutsufinMod()
+    {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::commonSetup);
+        MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        JujutsufinGUI.REGISTER.register(modEventBus);
+        JujutsufinItems.ITEMS.register(modEventBus);
+    }
+
+    public static <T> void addPacket(Class<T> packet, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> handler) {
+        PACKETHANDLER.registerMessage(ID, packet, encoder, decoder, handler);
+        ID++;
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        LOGGER.info("Mod Setup Successful");
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void registerKeybinds(RegisterKeyMappingsEvent event) {
+            event.register(JujutsufinKeybinds.JFK.KenjakuChangeTechnique);
+        }
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(() -> {
+                MenuScreens.register(JujutsufinGUI.KENJAKUCOPIESMENU.get(), KenjakuCopiesGUI::new);
+            });
+        }
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public static class ForgeEvents {
+
+    }
+}
