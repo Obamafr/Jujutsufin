@@ -16,14 +16,14 @@ public class Kaori extends Technique {
             case 6: {
                 if (canRCT(player)) {
                     found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.6").getString(), 100, false, false);
-                    break;
                 }
+                break;
             }
             case 20: {
                 if (canDomain(player)) {
                     found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.20").getString(), 1250, false, false);
-                    break;
                 }
+                break;
             }
             default: {
                 found = switchDefault(player, selected);
