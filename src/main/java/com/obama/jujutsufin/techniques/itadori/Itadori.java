@@ -3,7 +3,6 @@ package com.obama.jujutsufin.techniques.itadori;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.techniques.Technique;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
-import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

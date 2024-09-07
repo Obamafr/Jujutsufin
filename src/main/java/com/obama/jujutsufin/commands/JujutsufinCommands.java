@@ -9,5 +9,6 @@ public class JujutsufinCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(KenjakuCommand.build());
+        event.getDispatcher().register(JujutsufinTeamCommand.build());
     }
 }
