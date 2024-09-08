@@ -2,16 +2,14 @@ package com.obama.jujutsufin;
 
 import com.mojang.logging.LogUtils;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
-import com.obama.jujutsufin.init.JujutsufinGUI;
-import com.obama.jujutsufin.init.JujutsufinItems;
-import com.obama.jujutsufin.init.JujutsufinKeybinds;
-import com.obama.jujutsufin.world.KenjakuCopiesMenu;
-import net.minecraft.client.Minecraft;
+import com.obama.jujutsufin.client.particle.HollowWickerBaskertParticle;
+import com.obama.jujutsufin.init.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -46,6 +44,8 @@ public class JujutsufinMod
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         JujutsufinGUI.REGISTER.register(modEventBus);
         JujutsufinItems.ITEMS.register(modEventBus);
+        JujutsufinEffects.EFFECTS.register(modEventBus);
+        JujutsufinParticles.PARTICLES.register(modEventBus);
     }
 
     public static <T> void addPacket(Class<T> packet, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> handler) {
@@ -62,6 +62,12 @@ public class JujutsufinMod
         @SubscribeEvent
         public static void registerKeybinds(RegisterKeyMappingsEvent event) {
             event.register(JujutsufinKeybinds.JFK.KenjakuChangeTechnique);
+            event.register(JujutsufinKeybinds.JFK.KenjakuOpenMenu);
+            event.register(JujutsufinKeybinds.JFK.HollowWickerBasket);
+        }
+        @SubscribeEvent
+        public static void registerParticles(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(JujutsufinParticles.HWBPARTICLE.get(), HollowWickerBaskertParticle::provider);
         }
         @SubscribeEvent
         public static void clientSetup(FMLClientSetupEvent event) {

@@ -2,20 +2,14 @@ package com.obama.jujutsufin.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.obama.jujutsufin.JujutsufinMod;
+import com.obama.jujutsufin.network.ServerGrantHWBPacket;
 import com.obama.jujutsufin.network.ServerKenjakuChangeTechPacket;
 import com.obama.jujutsufin.network.ServerKenjakuOpenMenuPacket;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-
-@Mod.EventBusSubscriber(modid = JujutsufinMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public final class JujutsufinKeybinds {
     public static final JujutsufinKeybinds JFK = new JujutsufinKeybinds();
 
@@ -61,12 +55,23 @@ public final class JujutsufinKeybinds {
             this.wasDown = isDown;
         }
     };
+    public final KeyMapping HollowWickerBasket = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.hwbbutton").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_V, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
 
-    @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null) {
-            JFK.KenjakuChangeTechnique.consumeClick();
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerGrantHWBPacket());
+                ServerGrantHWBPacket.keyPress(Minecraft.getInstance().player);
+            }
+            this.wasDown = isDown;
         }
-    }
+    };
 }

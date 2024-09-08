@@ -2,7 +2,7 @@ package com.obama.jujutsufin.capabilities;
 
 
 
-import net.mcreator.jujutsucraft.JujutsucraftMod;
+import com.obama.jujutsufin.JujutsufinMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,7 +36,7 @@ public class JujutsufinPlayerCaps {
 
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) {
-        JujutsucraftMod.addNetworkMessage(PlayerCapsSyncMessage.class, PlayerCapsSyncMessage::buffer, PlayerCapsSyncMessage::new, PlayerCapsSyncMessage::handler);
+        JujutsufinMod.addPacket(PlayerCapsSyncMessage.class, PlayerCapsSyncMessage::buffer, PlayerCapsSyncMessage::new, PlayerCapsSyncMessage::handler);
     }
 
     @SubscribeEvent
@@ -100,7 +100,7 @@ public class JujutsufinPlayerCaps {
 
         public void syncPlayerCaps(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer) {
-                JujutsucraftMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerCapsSyncMessage(this));
+                JujutsufinMod.PACKETHANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerCapsSyncMessage(this));
             }
         }
 

@@ -8,5 +8,7 @@
   "jujutsufin.kaori.20": "Domain Expansion",
   "jujutsufin.utahime.5": "Solo Forbidden Area",
   "jujutsufin.utahime.20": "Domain Expansion",
-  "item.jujutsufin.cursedwomb" : "Cursed Womb: Death Painting"
+  "item.jujutsufin.cursedwomb" : "Cursed Womb: Death Painting",
+  "jujutsufin.effect.hwb" : "Hollow Wicker Basket",
+  "jujutsufin.effect.hwbcooldown" : "HWB Cooldown"
 }

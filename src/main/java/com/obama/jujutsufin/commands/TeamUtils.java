@@ -14,7 +14,6 @@ import net.minecraft.world.level.saveddata.SavedData;
 import java.util.List;
 
 public class TeamUtils extends SavedData {
-    public static final TeamUtils INSTANCE = new TeamUtils();
 
     private TeamUtils() {}
 
@@ -181,13 +180,9 @@ public class TeamUtils extends SavedData {
         this.TeamOwner = (tag.get("TeamOwner") instanceof ListTag lt ? lt : new ListTag());
     }
 
-    @Override
-    public void setDirty() {
-        super.setDirty();
-    }
-
     public static TeamUtils get(ServerLevel level) {
-        return level.getDataStorage().computeIfAbsent(INSTANCE::load, INSTANCE::create, "jujutsufin");
+        TeamUtils teamUtils = new TeamUtils();
+        return level.getDataStorage().computeIfAbsent(teamUtils::load, teamUtils::create, "teamfin");
     }
 
 }
