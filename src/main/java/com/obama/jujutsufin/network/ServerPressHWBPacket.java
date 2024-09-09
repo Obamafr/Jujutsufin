@@ -14,15 +14,15 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ServerGrantHWBPacket {
+public class ServerPressHWBPacket {
 
-    public ServerGrantHWBPacket() {}
+    public ServerPressHWBPacket() {}
 
-    public ServerGrantHWBPacket(FriendlyByteBuf buffer) {}
+    public ServerPressHWBPacket(FriendlyByteBuf buffer) {}
 
-    public static void encoder(ServerGrantHWBPacket packet, FriendlyByteBuf buffer) {}
+    public static void encoder(ServerPressHWBPacket packet, FriendlyByteBuf buffer) {}
 
-    public static void handler(ServerGrantHWBPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void handler(ServerPressHWBPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> keyPress(context.getSender()));
         context.setPacketHandled(true);
@@ -42,6 +42,6 @@ public class ServerGrantHWBPacket {
 
     @SubscribeEvent
     public static void registerMessage(FMLCommonSetupEvent event) {
-        JujutsufinMod.addPacket(ServerGrantHWBPacket.class, ServerGrantHWBPacket::encoder, ServerGrantHWBPacket::new, ServerGrantHWBPacket::handler);
+        JujutsufinMod.addPacket(ServerPressHWBPacket.class, ServerPressHWBPacket::encoder, ServerPressHWBPacket::new, ServerPressHWBPacket::handler);
     }
 }

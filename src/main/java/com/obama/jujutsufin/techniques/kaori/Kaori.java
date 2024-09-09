@@ -13,13 +13,17 @@ public class Kaori extends Technique {
                 break;
             }
             case 6: {
+                found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.6").getString(), 0, false, false);
+                break;
+            }
+            case 7: {
                 if (canRCT(player)) {
-                    found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.6").getString(), 100, false, false);
+                    found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.7").getString(), 100, false, false);
                 }
                 break;
             }
             case 20: {
-                if (canDomain(player)) {
+                if (canDomain(player) && !player.hasEffect(DOMAINEXPANSIONEFT)) {
                     found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.20").getString(), 1250, false, false);
                 }
                 break;

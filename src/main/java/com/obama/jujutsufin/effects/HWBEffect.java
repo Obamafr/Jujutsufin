@@ -2,7 +2,6 @@ package com.obama.jujutsufin.effects;
 
 import com.obama.jujutsufin.init.JujutsufinParticles;
 import com.obama.jujutsufin.utils.ParticleUtils;
-import net.mcreator.jujutsucraft.entity.DomainExpansionEntityEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.server.level.ServerLevel;
@@ -28,9 +27,12 @@ public class HWBEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amp) {
         if (livingEntity.level() instanceof ServerLevel serverLevel) {
-            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), livingEntity.getX(), livingEntity.getY() + 1, livingEntity.getZ(), 90, 1, 1.25, 0,0,0, 0, true, false, true, false);
-            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), livingEntity.getX(), livingEntity.getY() + 1, livingEntity.getZ(), 90, 1, 1.25, 0,0,0, 0, true, false, false, true);
-            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), livingEntity.getX(), livingEntity.getY() + 1, livingEntity.getZ(), 90, 1, 1.25, 0,0,0, 0, false, true, false, true);
+            double x = livingEntity.getX();
+            double y = livingEntity.getY();
+            double z = livingEntity.getZ();
+            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), x, y + 1, z, 90, 1, 1.25, 0,0,0, 0, true, false, true, false);
+            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), x, y + 1, z, 90, 1, 1.25, 0,0,0, 0, true, false, false, true);
+            ParticleUtils.makeCircle(serverLevel, JujutsufinParticles.HWBPARTICLE.get(), x, y + 1, z, 90, 1, 1.25, 0,0,0, 0, false, true, false, true);
             boolean found = false;
             List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(25));
             for (LivingEntity entity : entities) {

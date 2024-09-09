@@ -4,11 +4,14 @@
   "jujutsufin.keybinds.kenjakuopenmenu": "Kenjaku Open Menu",
   "jujutsufin.menu.kenjakucopies": "Kenjaku Menu",
   "jujutsufin.kaori.5": "Anti Gravity",
-  "jujutsufin.kaori.6": "Reversal Anti Gravity",
+  "jujutsufin.kaori.6": "Self Anti Gravity",
+  "jujutsufin.kaori.7": "Reversal Anti Gravity",
   "jujutsufin.kaori.20": "Domain Expansion",
   "jujutsufin.utahime.5": "Solo Forbidden Area",
   "jujutsufin.utahime.20": "Domain Expansion",
-  "item.jujutsufin.cursedwomb" : "Cursed Womb: Death Painting",
-  "jujutsufin.effect.hwb" : "Hollow Wicker Basket",
-  "jujutsufin.effect.hwbcooldown" : "HWB Cooldown"
+  "item.jujutsufin.cursedwomb": "Cursed Womb: Death Painting",
+  "jujutsufin.effect.hwb": "Hollow Wicker Basket",
+  "jujutsufin.effect.hwbcooldown": "HWB Cooldown",
+  "jujutsufin.effect.sfa": "Solo Forbidden Area",
+  "jujutsufin.effect.sfabuff": "Buffed"
 }

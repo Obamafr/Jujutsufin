@@ -19,7 +19,6 @@ import java.util.HashMap;
 
 public class KenjakuCopiesGUI extends AbstractContainerScreen<KenjakuCopiesMenu> {
     private final ResourceLocation texture = new ResourceLocation("jujutsucraft","textures/screens/select_technique.png");
-    private static final HashMap<String, Object> guistate = new HashMap<>();
     private final Player player;
 
     public KenjakuCopiesGUI(KenjakuCopiesMenu kenjakuCopiesMenu, Inventory inventory, Component name) {

@@ -2,7 +2,7 @@ package com.obama.jujutsufin.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.obama.jujutsufin.JujutsufinMod;
-import com.obama.jujutsufin.network.ServerGrantHWBPacket;
+import com.obama.jujutsufin.network.ServerPressHWBPacket;
 import com.obama.jujutsufin.network.ServerKenjakuChangeTechPacket;
 import com.obama.jujutsufin.network.ServerKenjakuOpenMenuPacket;
 import net.minecraft.client.KeyMapping;
@@ -68,8 +68,8 @@ public final class JujutsufinKeybinds {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (this.wasDown != isDown && isDown) {
-                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerGrantHWBPacket());
-                ServerGrantHWBPacket.keyPress(Minecraft.getInstance().player);
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressHWBPacket());
+                ServerPressHWBPacket.keyPress(Minecraft.getInstance().player);
             }
             this.wasDown = isDown;
         }

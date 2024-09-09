@@ -2,7 +2,8 @@ package com.obama.jujutsufin;
 
 import com.mojang.logging.LogUtils;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
-import com.obama.jujutsufin.client.particle.HollowWickerBaskertParticle;
+import com.obama.jujutsufin.client.particle.HWBParticle;
+import com.obama.jujutsufin.client.particle.SFAParticle;
 import com.obama.jujutsufin.init.*;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.FriendlyByteBuf;
@@ -67,7 +68,8 @@ public class JujutsufinMod
         }
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {
-            event.registerSpriteSet(JujutsufinParticles.HWBPARTICLE.get(), HollowWickerBaskertParticle::provider);
+            event.registerSpriteSet(JujutsufinParticles.HWBPARTICLE.get(), HWBParticle::provider);
+            event.registerSpriteSet(JujutsufinParticles.SFAPARTICLE.get(), SFAParticle::provider);
         }
         @SubscribeEvent
         public static void clientSetup(FMLClientSetupEvent event) {
@@ -75,10 +77,5 @@ public class JujutsufinMod
                 MenuScreens.register(JujutsufinGUI.KENJAKUCOPIESMENU.get(), KenjakuCopiesGUI::new);
             });
         }
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class ForgeEvents {
-
     }
 }

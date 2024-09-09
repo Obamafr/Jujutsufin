@@ -2,19 +2,19 @@ package com.obama.jujutsufin.techniques.itadori;
 
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.techniques.Technique;
+import net.mcreator.jujutsucraft.entity.BloodBallEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
 public class Itadori extends Technique {
-    private static final MobEffect DEATHPAINTINGBLOOD = JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get();
-
     public static boolean execute(Player player, int selected){
         boolean found = false;
         int CurseWombs = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).EatenWombs;
+        if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return switchDefault(player, selected);
         switch (selected) {
             case 5: {
                 if (CurseWombs >= 2) {
@@ -35,14 +35,14 @@ public class Itadori extends Technique {
                 break;
             }
             case 8: {
-                if (CurseWombs >= 5) {
+                if (CurseWombs >= 5 && isBloodBall(player)) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso4").getString(), 100, false, false);
                 }
                 break;
             }
             case 9: {
                 if (CurseWombs >= 7) {
-                    found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(), (player.hasEffect(DEATHPAINTINGBLOOD)? 100 : 0), true, false);
+                    found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(), (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get()) ? 0 : 100), true, false);
                 }
                 break;
             }
@@ -65,7 +65,7 @@ public class Itadori extends Technique {
                 break;
             }
             case 20: {
-                if (canDomain(player) && CurseWombs >= 9) {
+                if (canDomain(player) && CurseWombs >= 9 && !player.hasEffect(DOMAINEXPANSIONEFT)) {
                     found = setInfo(player, selected, Component.translatable("effect.domain_expansion").getString(), 1250, false, false);
                 }
                 break;
@@ -76,5 +76,9 @@ public class Itadori extends Technique {
             }
         }
         return found;
+    }
+
+    private static boolean isBloodBall(Player player) {
+        return !player.level().getEntitiesOfClass(BloodBallEntity.class, new AABB(player.blockPosition()).inflate(4), p -> p.getPersistentData().getString("OWNER_UUID").equals(player.getStringUUID())).isEmpty();
     }
 }
