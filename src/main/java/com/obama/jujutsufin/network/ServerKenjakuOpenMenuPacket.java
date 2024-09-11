@@ -1,6 +1,7 @@
 package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
+import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.world.KenjakuCopiesMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -35,11 +36,13 @@ public class ServerKenjakuOpenMenuPacket {
         if (player == null) return;
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
-            if (player instanceof ServerPlayer serverPlayer) {
-                NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-                        (containerId, playerInventory, Mplayer) -> new KenjakuCopiesMenu(containerId, playerInventory),
-                        Component.translatable("jujutsufin.menu.kenjakucopies")
-                ));
+            if (player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).CustomCT == 1) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
+                            (containerId, playerInventory, Mplayer) -> new KenjakuCopiesMenu(containerId, playerInventory),
+                            Component.translatable("jujutsufin.menu.kenjakucopies")
+                    ));
+                }
             }
         }
     }

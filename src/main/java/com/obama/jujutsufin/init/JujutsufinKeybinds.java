@@ -1,10 +1,9 @@
 package com.obama.jujutsufin.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.obama.jujutsufin.ClientConfig;
 import com.obama.jujutsufin.JujutsufinMod;
-import com.obama.jujutsufin.network.ServerPressHWBPacket;
-import com.obama.jujutsufin.network.ServerKenjakuChangeTechPacket;
-import com.obama.jujutsufin.network.ServerKenjakuOpenMenuPacket;
+import com.obama.jujutsufin.network.*;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -70,6 +69,72 @@ public final class JujutsufinKeybinds {
             if (this.wasDown != isDown && isDown) {
                 JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressHWBPacket());
                 ServerPressHWBPacket.keyPress(Minecraft.getInstance().player);
+            }
+            this.wasDown = isDown;
+        }
+    };
+    public final KeyMapping BurnoutKey = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.burnout").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_Y, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedBurnoutPacket(true));
+                ServerPressedBurnoutPacket.keyPress(Minecraft.getInstance().player, true);
+            } else if (this.wasDown != isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedBurnoutPacket(false));
+                ServerPressedBurnoutPacket.keyPress(Minecraft.getInstance().player, false);
+            }
+            this.wasDown = isDown;
+        }
+    };
+    public final KeyMapping DomainHotkey = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.domainhotkey").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_H, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(1, true));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player,1, true);
+            } else if (this.wasDown != isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(1,false));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player, 1, false);
+            }
+            this.wasDown = isDown;
+        }
+    };
+    public final KeyMapping PassiveHotkey = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.passivehotkey").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_B, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(2, true));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player,2, true);
+            } else if (this.wasDown != isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(2,false));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player, 2, false);
             }
             this.wasDown = isDown;
         }

@@ -1,5 +1,7 @@
 package com.obama.jujutsufin.commands;
 
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -8,7 +10,9 @@ import net.minecraftforge.fml.common.Mod;
 public class JujutsufinCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
-        event.getDispatcher().register(KenjakuCommand.build());
-        event.getDispatcher().register(JujutsufinTeamCommand.build());
+        CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
+        dispatcher.register(KenjakuCommand.build());
+        dispatcher.register(JujutsufinTeamCommand.build());
+        dispatcher.register(JJKFINCommand.build());
     }
 }

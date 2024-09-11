@@ -1,6 +1,7 @@
 package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
+import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.init.JujutsufinEffects;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,6 +31,7 @@ public class ServerPressHWBPacket {
 
     public static void keyPress(Player player) {
         if (player == null) return;
+        if (!player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).canHWB) return;
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
             if (player.hasEffect(JujutsufinEffects.HWB.get())) {

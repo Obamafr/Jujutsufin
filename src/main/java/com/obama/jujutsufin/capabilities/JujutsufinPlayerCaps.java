@@ -76,6 +76,8 @@ public class JujutsufinPlayerCaps {
                     variables.FatigueRate = message.data.FatigueRate;
                     variables.KenjakuCopies = message.data.KenjakuCopies;
                     variables.Veils = message.data.Veils;
+                    variables.SixEyesMultiplier = message.data.SixEyesMultiplier;
+                    variables.SukunaMultiplier = message.data.SukunaMultiplier;
                 }
             });
             context.setPacketHandled(true);
@@ -83,15 +85,17 @@ public class JujutsufinPlayerCaps {
     }
 
     public static class PlayerCaps {
-        public double CustomCT = 0.0;
+        public double CustomCT = 0;
         public int EatenWombs = 0;
         public double FriendNumber = Math.random();
         public boolean canHWB = true;
         public String PlayerTeam = "";
-        public double BlackFlashChance = -1.0;
-        public double RCTCost = -1.0;
-        public double BurnoutCost = -1.0;
-        public double FatigueRate = -1.0;
+        public double BlackFlashChance = 998;
+        public double RCTCost = 10;
+        public double BurnoutCost = 30;
+        public double FatigueRate = 20;
+        public double SixEyesMultiplier = 1;
+        public double SukunaMultiplier = 5;
         public ListTag KenjakuCopies = new ListTag();
         public CompoundTag Veils = new CompoundTag();
 
@@ -117,6 +121,8 @@ public class JujutsufinPlayerCaps {
             nbt.putDouble("FatigueRate", this.FatigueRate);
             nbt.put("KenjakuCopies", this.KenjakuCopies);
             nbt.put("Veils", this.Veils);
+            nbt.putDouble("SixEyesMultiplier", this.SixEyesMultiplier);
+            nbt.putDouble("SukunaMultiplier", this.SukunaMultiplier);
             return nbt;
         }
 
@@ -133,6 +139,8 @@ public class JujutsufinPlayerCaps {
             this.FatigueRate = nbt.getDouble("FatigueRate");
             this.KenjakuCopies = (nbt.get("KenjakuCopies") instanceof ListTag lt ? lt : new ListTag());
             this.Veils = nbt.getCompound("Veils");
+            this.SixEyesMultiplier = nbt.getDouble("SixEyesMultiplier");
+            this.SukunaMultiplier = nbt.getDouble("SukunaMultiplier");
         }
     }
 
@@ -206,6 +214,8 @@ public class JujutsufinPlayerCaps {
             clone.FatigueRate = original.FatigueRate;
             clone.KenjakuCopies = original.KenjakuCopies;
             clone.Veils = original.Veils;
+            clone.SixEyesMultiplier = original.SixEyesMultiplier;
+            clone.SukunaMultiplier = original.SukunaMultiplier;
         }
     }
 }

@@ -13,5 +13,17 @@
   "jujutsufin.effect.hwb": "Hollow Wicker Basket",
   "jujutsufin.effect.hwbcooldown": "HWB Cooldown",
   "jujutsufin.effect.sfa": "Solo Forbidden Area",
-  "jujutsufin.effect.sfabuff": "Buffed"
+  "jujutsufin.effect.sfabuff": "Buffed",
+  "jujutsufin.gui.kenjaku": "Kenjaku",
+  "jujutsufin.gui.utahime": "Utahime",
+  "jujutsufin.gui.kaori": "Kaori",
+  "jujutsufin.gui.jujutsucraft": "Jujutsucraft",
+  "jujutsufin.gui.reset": "Reset",
+  "item.jujutsufin.customtechniquechanger": "Custom Technique Changer",
+  "jujutsufin.menu.customtech": "Jujutsufin Techniques",
+  "jujutsufin.keybinds.burnout": "Reverse Curse Technique: Burnout",
+  "jujutsufin.keybinds.domainhotkey": "Domain Hotkey",
+  "jujutsufin.keybinds.hwbbutton": "Activate Hollow Wicker Basket",
+  "jujutsufin.keybinds.passivehotkey": "Passive Hotkey",
+  "jujutsufin.tab.jujutsufin": "JujutsuFIN"
 }

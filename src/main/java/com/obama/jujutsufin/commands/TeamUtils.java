@@ -1,6 +1,7 @@
 package com.obama.jujutsufin.commands;
 
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
@@ -34,9 +35,13 @@ public class TeamUtils extends SavedData {
             TeamOwner.add(StringTag.valueOf(player.getStringUUID()));
             player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                 cap.PlayerTeam = name;
-                cap.FriendNumber = random;
                 cap.syncPlayerCaps(player);
             });
+            player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
+                cap.friend_num_keep = random;
+                cap.syncPlayerVariables(player);
+            });
+            player.getPersistentData().putDouble("friend_num", random);
             player.sendSystemMessage(Component.literal("Created team " + name));
             teamUtils.setDirty();
         } else {
@@ -54,11 +59,14 @@ public class TeamUtils extends SavedData {
                 leaveTeam(c, player);
                 player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                     cap.PlayerTeam = name;
-                    double number = FriendNumbers.getDouble(Team.indexOf(StringTag.valueOf(name)));
-                    cap.FriendNumber = number;
-                    player.getPersistentData().putDouble("friendnum", number);
                     cap.syncPlayerCaps(player);
                 });
+                double number = FriendNumbers.getDouble(Team.indexOf(StringTag.valueOf(name)));
+                player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
+                    cap.friend_num_keep = number;
+                    cap.syncPlayerVariables(player);
+                });
+                player.getPersistentData().putDouble("friend_num", number);
                 player.sendSystemMessage(Component.literal("Joined team " + name), false);
             } else {
                 c.sendFailure(Component.literal("You don't have an invite to this team."));
@@ -124,7 +132,6 @@ public class TeamUtils extends SavedData {
         double random = Math.random();
         player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
             cap.PlayerTeam = "";
-            cap.FriendNumber = random;
             cap.syncPlayerCaps(player);
         });
         player.getPersistentData().putDouble("friendnum", random);

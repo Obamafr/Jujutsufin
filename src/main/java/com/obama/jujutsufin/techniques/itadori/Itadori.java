@@ -14,7 +14,7 @@ public class Itadori extends Technique {
     public static boolean execute(Player player, int selected){
         boolean found = false;
         int CurseWombs = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).EatenWombs;
-        if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return switchDefault(player, selected);
+        if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return false;
         switch (selected) {
             case 5: {
                 if (CurseWombs >= 2) {

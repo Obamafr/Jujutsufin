@@ -1,6 +1,7 @@
 package com.obama.jujutsufin;
 
 import com.mojang.logging.LogUtils;
+import com.obama.jujutsufin.client.gui.CustomTechniquesGUI;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
 import com.obama.jujutsufin.client.particle.HWBParticle;
 import com.obama.jujutsufin.client.particle.SFAParticle;
@@ -42,9 +43,10 @@ public class JujutsufinMod
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC, "jujutsufin-client.toml");
         JujutsufinGUI.REGISTER.register(modEventBus);
         JujutsufinItems.ITEMS.register(modEventBus);
+        JujutsufinItems.TABS.register(modEventBus);
         JujutsufinEffects.EFFECTS.register(modEventBus);
         JujutsufinParticles.PARTICLES.register(modEventBus);
     }
@@ -65,6 +67,9 @@ public class JujutsufinMod
             event.register(JujutsufinKeybinds.JFK.KenjakuChangeTechnique);
             event.register(JujutsufinKeybinds.JFK.KenjakuOpenMenu);
             event.register(JujutsufinKeybinds.JFK.HollowWickerBasket);
+            event.register(JujutsufinKeybinds.JFK.BurnoutKey);
+            event.register(JujutsufinKeybinds.JFK.DomainHotkey);
+            event.register(JujutsufinKeybinds.JFK.PassiveHotkey);
         }
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {
@@ -75,6 +80,7 @@ public class JujutsufinMod
         public static void clientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 MenuScreens.register(JujutsufinGUI.KENJAKUCOPIESMENU.get(), KenjakuCopiesGUI::new);
+                MenuScreens.register(JujutsufinGUI.CUSTOMTECHNIQUESMENU.get(), CustomTechniquesGUI::new);
             });
         }
     }

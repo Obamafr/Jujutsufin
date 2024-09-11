@@ -9,7 +9,10 @@
     "MixinCurseTechniqueEffectTick",
     "MixinConvergence",
     "MixinBloodBall",
-    "MixinDPBEffectTick"
+    "MixinDPBEffectTick",
+    "MixinRangeAttackProcedure",
+    "MixinReverseCurseTechnique",
+    "MixinPlayerTickEvent"
   ],
   "client": [],
   "server": []
