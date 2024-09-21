@@ -5,8 +5,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Forge's config APIs
 @Mod.EventBusSubscriber(modid = JujutsufinMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientConfig
 {
@@ -14,11 +12,11 @@ public class ClientConfig
 
     private static final ForgeConfigSpec.BooleanValue DOMAIN_HOTKEY_HOLD = BUILDER
             .comment("Whether to hold or press Domain Hotkey")
-            .define("holdDomainHotkey", false);
+            .define("holdDomainHotkey", true);
 
     private static final ForgeConfigSpec.BooleanValue PASSIVE_HOTKEY_HOLD = BUILDER
             .comment("Whether to hold or press Passive Hotkey")
-            .define("holdPassiveHotkey", false);
+            .define("holdPassiveHotkey", true);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 

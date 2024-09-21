@@ -1,11 +1,9 @@
 package com.obama.jujutsufin.techniques.itadori;
 
-import net.mcreator.jujutsucraft.entity.BloodBallEntity;
 import net.mcreator.jujutsucraft.procedures.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.AABB;
 
 public class ItadoriUtils {
     public static boolean execute(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity, int skill) {

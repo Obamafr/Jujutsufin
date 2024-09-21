@@ -3,6 +3,7 @@ package com.obama.jujutsufin.mixins;
 import com.obama.jujutsufin.techniques.itadori.ItadoriUtils;
 import com.obama.jujutsufin.techniques.kaori.KaoriUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
+import com.obama.jujutsufin.techniques.veils.VeilsUtils;
 import net.mcreator.jujutsucraft.procedures.CursedTechniqueOnPotionActiveTickProcedure;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +21,9 @@ public class MixinCurseTechniqueEffectTick {
         if (entity instanceof LivingEntity livingEntity && world instanceof ServerLevel serverLevel) {
             boolean found = false;
             int skill = (int)livingEntity.getPersistentData().getDouble("skill");
+            if (skill == 50000) {
+                found = VeilsUtils.chargeVeil(serverLevel, livingEntity);
+            }
             if (skill >= 10000 && skill < 10100) {
                 found = UtahimeUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 10200 && skill < 10300) {

@@ -1,14 +1,17 @@
 package com.obama.jujutsufin.techniques.kaori;
 
+import com.obama.jujutsufin.init.JujutsufinEffects;
 import com.obama.jujutsufin.techniques.Skill;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.AttackContinueProcedure;
+import net.mcreator.jujutsucraft.procedures.AttackStrongProcedure;
 import net.mcreator.jujutsucraft.procedures.OtherDomainExpansionProcedure;
 import net.mcreator.jujutsucraft.procedures.RangeAttackProcedure;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,6 +37,10 @@ public class KaoriUtils extends Skill {
                 found = gravity(serverLevel, x, y, z, livingEntity);
                 break;
             }
+            case 8: {
+                found = selfGravity(livingEntity);
+                break;
+            }
             case 20: {
                 livingEntity.getPersistentData().putDouble("skill_domain", 18);
                 OtherDomainExpansionProcedure.execute(serverLevel, x, y, z, livingEntity);
@@ -44,13 +51,21 @@ public class KaoriUtils extends Skill {
         return found;
     }
 
+    private static boolean selfGravity(LivingEntity livingEntity) {
+        noCharge(livingEntity, 0);
+        MobEffect Gravity = JujutsufinEffects.GRAVITY.get();
+        if (livingEntity.hasEffect(Gravity)) return livingEntity.removeEffect(Gravity);
+        return livingEntity.addEffect(new MobEffectInstance(Gravity, -1, 0, false, false));
+    }
+
     private static boolean antiGravity(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity) {
         charge(livingEntity, 50, false);
-        serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 1, 4,0,4, 1);
+        serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 10, 4,0,4, 1);
         CompoundTag originData = livingEntity.getPersistentData();
         originData.putBoolean("antiGrav", true);
         originData.putInt("cntG", originData.getInt("cntG") + 1);
         double cntG = originData.getInt("cntG");
+        AttackStrongProcedure.execute(serverLevel, x, y, z, livingEntity);
         if (originData.getBoolean("PRESS_Z")) {
             if (cntG % 20 == 0) {
                 List<LivingEntity> livingEntities = serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(4));
@@ -71,6 +86,7 @@ public class KaoriUtils extends Skill {
                 originData.putBoolean("PRESS_Z", false);
             }
         } else {
+            livingEntity.removeEffect(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get());
             originData.putInt("cntG", 0);
             originData.putBoolean("antiGrav", false);
         }
@@ -79,16 +95,16 @@ public class KaoriUtils extends Skill {
 
     private static boolean selfAntiGravity(LivingEntity livingEntity) {
         noCharge(livingEntity, 0);
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 100, 0));
-        return true;
+        return livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 100, 0));
     }
 
     private static boolean gravity(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity) {
         charge(livingEntity, 100, false);
-        serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, x, y + 1, z, 1, 4,0,4, 1);
+        serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, x, y + 1, z, 10, 4,0,4, 1);
         CompoundTag originData = livingEntity.getPersistentData();
         originData.putInt("cntG", originData.getInt("cntG") + 1);
         int cntG = originData.getInt("cntG");
+        AttackStrongProcedure.execute(serverLevel, x, y, z, livingEntity);
         if (originData.getBoolean("PRESS_Z")) {
             if (cntG % 20 == 0) {
                 originData.putDouble("Damage", 15);
@@ -112,6 +128,7 @@ public class KaoriUtils extends Skill {
                 originData.putBoolean("PRESS_Z", false);
             }
         } else {
+            livingEntity.removeEffect(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get());
             originData.putInt("cntG", 0);
         }
         return true;

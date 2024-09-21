@@ -139,4 +139,26 @@ public final class JujutsufinKeybinds {
             this.wasDown = isDown;
         }
     };
+    public final KeyMapping VeilHotkey = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.veilhotkey").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_U, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(3, true));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player,3, true);
+            } else if (this.wasDown != isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(3,false));
+                ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player, 3, false);
+            }
+            this.wasDown = isDown;
+        }
+    };
 }

@@ -40,7 +40,7 @@ public class ServerPressedBurnoutPacket {
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
             if (pressed) {
-                player.addEffect(new MobEffectInstance(JujutsufinEffects.BURNOUT.get(), -1, 0));
+                player.addEffect(new MobEffectInstance(JujutsufinEffects.BURNOUT.get(), -1, 0, false, true));
             } else {
                 player.removeEffect(JujutsufinEffects.BURNOUT.get());
             }

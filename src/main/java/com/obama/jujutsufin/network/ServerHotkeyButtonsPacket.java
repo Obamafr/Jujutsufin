@@ -2,11 +2,13 @@ package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.ClientConfig;
 import com.obama.jujutsufin.JujutsufinMod;
+import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyReleasedProcedure;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,7 +52,20 @@ public class ServerHotkeyButtonsPacket {
                 DomainHotkey(player, pressed);
             } else if (type == 2) {
                 PassiveHotkey(player, pressed);
+            } else if (type == 3) {
+                VeilHotkey(player, pressed);
             }
+        }
+    }
+
+    private static void VeilHotkey(Player player, boolean pressed) {
+        if (pressed) {
+            player.getPersistentData().putDouble("skill", 50000);
+            player.getPersistentData().putBoolean("PRESS_Z", true);
+            player.addEffect(new MobEffectInstance(JujutsucraftModMobEffects.CURSED_TECHNIQUE.get(), -1, 0));
+        } else {
+            player.getPersistentData().putInt("cnt_v", 0);
+            KeyStartTechniqueOnKeyReleasedProcedure.execute(player);
         }
     }
 
@@ -63,8 +78,8 @@ public class ServerHotkeyButtonsPacket {
             player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
                 cap.PlayerSelectCurseTechnique = 20;
                 cap.syncPlayerVariables(player);
+                KeyStartTechniqueOnKeyPressedProcedure.execute(level, x, y, z, player);
             });
-            KeyStartTechniqueOnKeyPressedProcedure.execute(level, x, y, z, player);
         } else {
             if (ClientConfig.DomainHotkeyHold) {
                 KeyStartTechniqueOnKeyReleasedProcedure.execute(player);
@@ -87,6 +102,12 @@ public class ServerHotkeyButtonsPacket {
                 if (playerVariables.PlayerSelectCurseTechnique == oldSelect) return;
             }
             KeyStartTechniqueOnKeyPressedProcedure.execute(level, x, y, z, player);
+            player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
+                cap.PlayerSelectCurseTechnique = oldSelect;
+                cap.noChangeTechnique = true;
+                cap.syncPlayerVariables(player);
+                KeyChangeTechniqueOnKeyPressedProcedure.execute(level, x, y, z, player);
+            });
         } else {
             if (ClientConfig.PassiveHotkeyHold) {
                 KeyStartTechniqueOnKeyReleasedProcedure.execute(player);

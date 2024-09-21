@@ -5,11 +5,14 @@ import com.obama.jujutsufin.client.gui.CustomTechniquesGUI;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
 import com.obama.jujutsufin.client.particle.HWBParticle;
 import com.obama.jujutsufin.client.particle.SFAParticle;
+import com.obama.jujutsufin.client.render.VeilRender;
 import com.obama.jujutsufin.init.*;
+import net.mcreator.jujutsucraft.client.model.Modelrock_fragment;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,7 +37,7 @@ import java.util.function.Supplier;
 public class JujutsufinMod
 {
     public static final String MODID = "jujutsufin";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final SimpleChannel PACKETHANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation("jujutsufin", "main"), () -> "1", "1"::equals, "1"::equals);
     private static int ID = 0;
 
@@ -49,6 +52,7 @@ public class JujutsufinMod
         JujutsufinItems.TABS.register(modEventBus);
         JujutsufinEffects.EFFECTS.register(modEventBus);
         JujutsufinParticles.PARTICLES.register(modEventBus);
+        JujutsufinEntities.ENTITIES.register(modEventBus);
     }
 
     public static <T> void addPacket(Class<T> packet, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> handler) {
@@ -62,6 +66,14 @@ public class JujutsufinMod
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+        @SubscribeEvent
+        public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(JujutsufinEntities.VEIL.get(), VeilRender::new);
+        }
+        @SubscribeEvent
+        public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(Modelrock_fragment.LAYER_LOCATION, Modelrock_fragment::createBodyLayer);
+        }
         @SubscribeEvent
         public static void registerKeybinds(RegisterKeyMappingsEvent event) {
             event.register(JujutsufinKeybinds.JFK.KenjakuChangeTechnique);

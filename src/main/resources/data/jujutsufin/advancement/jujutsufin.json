@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "item": "jujutsufin:customtechniquechanger"
+    },
+    "title": "Enter JujutsuFIN",
+    "description": "fr.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

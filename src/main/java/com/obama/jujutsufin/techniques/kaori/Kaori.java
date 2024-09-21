@@ -9,16 +9,22 @@ public class Kaori extends Technique {
         boolean found = false;
         switch (selected) {
             case 5: {
-                found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.5").getString(), 50, false, false);
+                found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.5").getString(), 50, false, true);
                 break;
             }
             case 6: {
-                found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.6").getString(), 0, false, false);
+                found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.6").getString(), 50, false, false);
                 break;
             }
             case 7: {
                 if (canRCT(player)) {
-                    found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.7").getString(), 100, false, false);
+                    found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.7").getString(), 100, false, true);
+                }
+                break;
+            }
+            case 8: {
+                if (canRCT(player)) {
+                    found = setInfo(player, selected, Component.translatable("jujutsufin.kaori.8").getString(), 0, true, false);
                 }
                 break;
             }

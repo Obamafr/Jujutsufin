@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "item": "jujutsucraft:item_master_reverse_cursed_technique"
+    },
+    "title": "Unlock Reverse Curse Technique Burnout",
+    "description": "From taking damage.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

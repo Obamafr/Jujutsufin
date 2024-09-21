@@ -19,6 +19,7 @@ public class BurnoutEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amp) {
+        if (livingEntity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCursePower < 30) return;
         MobEffect CLD = JujutsucraftModMobEffects.COOLDOWN_TIME.get();
         MobEffect UST = JujutsucraftModMobEffects.UNSTABLE.get();
         MobEffectInstance COOLDOWN = livingEntity.getEffect(CLD);
@@ -39,7 +40,7 @@ public class BurnoutEffect extends MobEffect {
                 cost = livingEntity.addEffect(new MobEffectInstance(UNSTABLE.getEffect(), duration - 20, UNSTABLE.getAmplifier()));
             }
             livingEntity.getPersistentData().putDouble("BurnoutUsed", livingEntity.getPersistentData().getDouble("BurnoutUsed") + 1);
-            if (Math.random() * 1000 < livingEntity.getPersistentData().getDouble("BurnoutUsed")) {
+            if (Math.random() < 0.0001 * livingEntity.getPersistentData().getDouble("BurnoutUsed")) {
                 livingEntity.getPersistentData().putDouble("BurnoutUsed", 0);
                 livingEntity.addEffect(new MobEffectInstance(JujutsucraftModMobEffects.BRAIN_DAMAGE.get(), 6000, 0));
                 livingEntity.removeEffect(this);

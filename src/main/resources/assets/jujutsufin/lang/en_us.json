@@ -3,9 +3,10 @@
   "jujutsufin.keybinds.kenjakuchangetechnique": "Kenjaku Change Technique",
   "jujutsufin.keybinds.kenjakuopenmenu": "Kenjaku Open Menu",
   "jujutsufin.menu.kenjakucopies": "Kenjaku Menu",
-  "jujutsufin.kaori.5": "Anti Gravity",
+  "jujutsufin.kaori.5": "Anti Gravity: Punch",
   "jujutsufin.kaori.6": "Self Anti Gravity",
-  "jujutsufin.kaori.7": "Reversal Anti Gravity",
+  "jujutsufin.kaori.7": "Gravity: Punch",
+  "jujutsufin.kaori.8": "Gravity: Output",
   "jujutsufin.kaori.20": "Domain Expansion",
   "jujutsufin.utahime.5": "Solo Forbidden Area",
   "jujutsufin.utahime.20": "Domain Expansion",
@@ -25,5 +26,7 @@
   "jujutsufin.keybinds.domainhotkey": "Domain Hotkey",
   "jujutsufin.keybinds.hwbbutton": "Activate Hollow Wicker Basket",
   "jujutsufin.keybinds.passivehotkey": "Passive Hotkey",
-  "jujutsufin.tab.jujutsufin": "JujutsuFIN"
+  "jujutsufin.tab.jujutsufin": "JujutsuFIN",
+  "jujutsufin.veils.spawn" : "Spawn Veil",
+  "jujutsufin.veils.despawn": "Break Veil"
 }
