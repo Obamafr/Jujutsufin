@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "jujutsufin:block/veil",
+    "up": "jujutsufin:block/veil",
+    "north": "jujutsufin:block/veil",
+    "east": "jujutsufin:block/veil",
+    "south": "jujutsufin:block/veil",
+    "west": "jujutsufin:block/veil",
+    "particle": "jujutsufin:block/veil"
+  },
+  "render_type": "translucent"
+}

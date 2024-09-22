@@ -1,5 +1,6 @@
 package com.obama.jujutsufin.techniques.veils;
 
+import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.entity.VeilEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.minecraft.nbt.CompoundTag;
@@ -13,6 +14,27 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 
 public class VeilsUtils {
+
+    public static String[] CTNames = {"Maki", "None", "Sukuna", "Gojo", "Inumaki", "Jogo", "Okkotsu", "Megumi", "Kashimo", "Dagon", "Tsukumo", "Choso", "Mei Mei", "Ishigori", "Nanami", "Hanami", "Mahito", "Mahoraga", "Takaba", "Geto", "Naoya", "Todo", "Itadori", "Jinichi", "Kurourushi", "Uraume", "Small Pox Deity", "Ogi", "Higuruma", "Angel", "Hakari", "Miguel", "Kusukabe", "Chojuro", "Yaga", "Nobara", "Junpei", "Nishimiya", "Lakdawalla", "Uro", "Yorozu", "Ino"};
+
+    public static String[] CustomNames = {"Utahime", "None", "Kaori"};
+
+    public static void veilP4(Player player, int i) {
+        player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+            int P4 = cap.Veils.getInt("P4") + i;
+            if (P4 >= CTNames.length - 1 && P4 < 99) {
+                P4 = 100;
+            } else if (P4 < 0) {
+                P4 = 102;
+            } else if (P4 == 99) {
+                P4 = CTNames.length - 2;
+            } else if (P4 == CustomNames.length + 100) {
+                P4 = 0;
+            }
+            cap.Veils.putInt("P4", P4);
+            cap.syncPlayerCaps(player);
+        });
+    }
 
     public static boolean chargeVeil(ServerLevel serverLevel, LivingEntity livingEntity) {
         boolean spawn = true;
@@ -59,6 +81,8 @@ public class VeilsUtils {
         for (VeilEntity veil : list) {
             if (veil.getPersistentData().getString("veilOwner").isEmpty()) {
                 veil.getPersistentData().putString("veilOwner", livingEntity.getStringUUID());
+                veil.getPersistentData().put("Veils", livingEntity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).Veils);
+                veil.getPersistentData().putDouble("friend_num", livingEntity.getPersistentData().getDouble("friend_num"));
                 break;
             }
         }

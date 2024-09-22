@@ -4,17 +4,27 @@ import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
+import net.mcreator.jujutsucraft.entity.BlackHoleEntity;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = JujutsufinMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonForgeEventBus {
+    @SubscribeEvent
+    public static void EntityTakesDamage(LivingHurtEvent event) {
+        LivingEntity target = event.getEntity();
+        Entity source = event.getSource().getEntity();
+        if (target.hasEffect(MobEffects.LEVITATION) && source instanceof BlackHoleEntity && event.isCancelable()) {
+            event.setCanceled(true);
+        }
+    }
     @SubscribeEvent
     public static void PlayerRightClicksEntity(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();

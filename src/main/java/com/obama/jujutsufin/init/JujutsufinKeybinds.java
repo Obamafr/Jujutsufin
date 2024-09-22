@@ -1,7 +1,6 @@
 package com.obama.jujutsufin.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.obama.jujutsufin.ClientConfig;
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.network.*;
 import net.minecraft.client.KeyMapping;
@@ -48,8 +47,8 @@ public final class JujutsufinKeybinds {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (this.wasDown != isDown && isDown) {
-                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerKenjakuOpenMenuPacket());
-                ServerKenjakuOpenMenuPacket.keyPress(Minecraft.getInstance().player);
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerOpenMenusPacket(1));
+                ServerOpenMenusPacket.keyPress(Minecraft.getInstance().player, 1);
             }
             this.wasDown = isDown;
         }
@@ -157,6 +156,25 @@ public final class JujutsufinKeybinds {
             } else if (this.wasDown != isDown) {
                 JujutsufinMod.PACKETHANDLER.sendToServer(new ServerHotkeyButtonsPacket(3,false));
                 ServerHotkeyButtonsPacket.keyPress(Minecraft.getInstance().player, 3, false);
+            }
+            this.wasDown = isDown;
+        }
+    };
+    public final KeyMapping VeilSettings = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.veilsettings").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_EQUALS, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerOpenMenusPacket(2));
+                ServerOpenMenusPacket.keyPress(Minecraft.getInstance().player, 2);
             }
             this.wasDown = isDown;
         }

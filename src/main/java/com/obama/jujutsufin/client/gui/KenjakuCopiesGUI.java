@@ -5,7 +5,6 @@ import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.network.ServerKenjakuGUIButtonPacket;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
 import com.obama.jujutsufin.world.KenjakuCopiesMenu;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -13,9 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-
-
-import java.util.HashMap;
 
 public class KenjakuCopiesGUI extends AbstractContainerScreen<KenjakuCopiesMenu> {
     private final ResourceLocation texture = new ResourceLocation("jujutsucraft","textures/screens/select_technique.png");
@@ -53,15 +49,15 @@ public class KenjakuCopiesGUI extends AbstractContainerScreen<KenjakuCopiesMenu>
         super.init();
         this.addRenderableWidget(new Button.Builder(Component.literal("<"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerKenjakuGUIButtonPacket(-1));
-            ServerKenjakuGUIButtonPacket.keyPress(Minecraft.getInstance().player, -1);
+            ServerKenjakuGUIButtonPacket.keyPress(player, -1);
         }).bounds(this.leftPos + 5,this.topPos + 23 , 20, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.literal(">"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerKenjakuGUIButtonPacket(1));
-            ServerKenjakuGUIButtonPacket.keyPress(Minecraft.getInstance().player, 1);
+            ServerKenjakuGUIButtonPacket.keyPress(player, 1);
         }).bounds(this.leftPos + 125,this.topPos + 23 , 20, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.kenjakudelete"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerKenjakuGUIButtonPacket(0));
-            ServerKenjakuGUIButtonPacket.keyPress(Minecraft.getInstance().player, 0);
+            ServerKenjakuGUIButtonPacket.keyPress(player, 0);
         }).bounds(this.leftPos + 55,this.topPos + 48 , 40, 20).build());
     }
 }

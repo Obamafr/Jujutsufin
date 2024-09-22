@@ -1,12 +1,14 @@
 package com.obama.jujutsufin.entity;
 
-import com.obama.jujutsufin.init.JujutsufinGameRules;
-import net.mcreator.jujutsucraft.init.JujutsucraftModBlocks;
+import com.obama.jujutsufin.init.JujutsufinBlocks;
+import com.obama.jujutsufin.techniques.veils.VeilThread;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -53,7 +55,6 @@ public class VeilEntity extends Mob {
         return true;
     }
 
-    @Deprecated
     @Override
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor accessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag tag) {
         SpawnGroupData spawnGroupData1 = super.finalizeSpawn(accessor, difficultyInstance, spawnType, spawnGroupData, tag);
@@ -90,30 +91,18 @@ public class VeilEntity extends Mob {
     }
 
     public void setMadeVeil(boolean madeVeil) {
-        getPersistentData().putBoolean("madeVeil", madeVeil);
-        this.madeVeil = madeVeil;
         if (level() instanceof ServerLevel serverLevel) {
-            int radius = level().getLevelData().getGameRules().getInt(JujutsufinGameRules.VeilRadius);
-            for(int loopX = VeilX - radius; loopX <= VeilX + radius; ++loopX) {
-                for (int loopY = VeilY - radius; loopY <= VeilY + radius; ++loopY) {
-                    for (int loopZ = VeilZ - radius; loopZ <= VeilZ + radius; ++loopZ) {
-                        double distance = Math.sqrt(Math.pow((loopX - VeilX), 2.0) + Math.pow((loopY - VeilY), 2.0) + Math.pow(loopZ - VeilZ, 2.0));
-                        if (distance <= radius && distance >= (radius - 1)) {
-                            if (madeVeil) {
-                                makeVeil(serverLevel, loopX, loopY, loopZ);
-                            } else {
-                                breakVeil(serverLevel, loopX, loopY, loopZ);
-                            }
-                        }
-                    }
-                }
-            }
+            VeilThread thread = new VeilThread(serverLevel, this, madeVeil);
+            thread.start();
+            getPersistentData().putBoolean("madeVeil", madeVeil);
+            this.madeVeil = madeVeil;
         }
     }
 
-    private void makeVeil(ServerLevel serverLevel, int x, int y, int z) {
+    public void makeVeil(ServerLevel serverLevel, int x, int y, int z) {
         BlockPos blockPos = BlockPos.containing(x, y, z);
         BlockState oldBlock = serverLevel.getBlockState(blockPos);
+        if (oldBlock.is(BlockTags.create(new ResourceLocation("jujutsucraft:barrier")))) return;
         BlockEntity oldBlockEntity = serverLevel.getBlockEntity(blockPos);
         ListTag items = new ListTag();
         if (oldBlockEntity != null) {
@@ -129,18 +118,22 @@ public class VeilEntity extends Mob {
                 }
             });
         }
-        serverLevel.getServer().getCommands().performPrefixedCommand(createCommandSourceStack().withPermission(4).withSuppressedOutput(), "setblock " + x + " " + y + " " + z + " " + ForgeRegistries.BLOCKS.getKey(JujutsucraftModBlocks.JUJUTSU_BARRIER.get()));
+        serverLevel.getServer().getCommands().performPrefixedCommand(createCommandSourceStack().withPermission(4).withSuppressedOutput(), "setblock " + x + " " + y + " " + z + " jujutsufin:veil");
         String oldBlockInfo = oldBlock.toString();
         oldBlockInfo = oldBlockInfo.replace("Block{", "");
         oldBlockInfo = oldBlockInfo.replace("}", "");
         BlockEntity newBlockEntity = serverLevel.getBlockEntity(blockPos);
         if (newBlockEntity != null) {
-            newBlockEntity.getPersistentData().put("oldBlockItems", items);
-            newBlockEntity.getPersistentData().putString("old_block", oldBlockInfo);
+            CompoundTag data = newBlockEntity.getPersistentData();
+            data.put("oldBlockItems", items);
+            data.putString("old_block", oldBlockInfo);
+            data.put("Veils", getPersistentData().getCompound("Veils"));
+            data.putString("veilOwner", getPersistentData().getString("veilOwner"));
+            data.putDouble("friend_num", getPersistentData().getDouble("friend_num"));
         }
     }
 
-    private void breakVeil(ServerLevel serverLevel, int x, int y, int z) {
+    public void breakVeil(ServerLevel serverLevel, int x, int y, int z) {
         BlockPos blockPos = BlockPos.containing(x, y, z);
         BlockEntity oldBlockEntity = serverLevel.getBlockEntity(blockPos);
         if (oldBlockEntity != null) {
@@ -158,6 +151,7 @@ public class VeilEntity extends Mob {
             }
         }
     }
+
 
     public int getVeilX() {
         return VeilX;

@@ -3,11 +3,11 @@ package com.obama.jujutsufin;
 import com.mojang.logging.LogUtils;
 import com.obama.jujutsufin.client.gui.CustomTechniquesGUI;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
+import com.obama.jujutsufin.client.gui.VeilSettingsGUI;
 import com.obama.jujutsufin.client.particle.HWBParticle;
 import com.obama.jujutsufin.client.particle.SFAParticle;
 import com.obama.jujutsufin.client.render.VeilRender;
 import com.obama.jujutsufin.init.*;
-import net.mcreator.jujutsucraft.client.model.Modelrock_fragment;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -53,6 +53,8 @@ public class JujutsufinMod
         JujutsufinEffects.EFFECTS.register(modEventBus);
         JujutsufinParticles.PARTICLES.register(modEventBus);
         JujutsufinEntities.ENTITIES.register(modEventBus);
+        JujutsufinBlocks.BLOCKS.register(modEventBus);
+        JujutsufinEntities.BLOCK_ENTITIES.register(modEventBus);
     }
 
     public static <T> void addPacket(Class<T> packet, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> handler) {
@@ -68,11 +70,7 @@ public class JujutsufinMod
     public static class ClientModEvents {
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerEntityRenderer(JujutsufinEntities.VEIL.get(), VeilRender::new);
-        }
-        @SubscribeEvent
-        public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            event.registerLayerDefinition(Modelrock_fragment.LAYER_LOCATION, Modelrock_fragment::createBodyLayer);
+            event.registerEntityRenderer(JujutsufinEntities.Veil.get(), VeilRender::new);
         }
         @SubscribeEvent
         public static void registerKeybinds(RegisterKeyMappingsEvent event) {
@@ -82,6 +80,8 @@ public class JujutsufinMod
             event.register(JujutsufinKeybinds.JFK.BurnoutKey);
             event.register(JujutsufinKeybinds.JFK.DomainHotkey);
             event.register(JujutsufinKeybinds.JFK.PassiveHotkey);
+            event.register(JujutsufinKeybinds.JFK.VeilHotkey);
+            event.register(JujutsufinKeybinds.JFK.VeilSettings);
         }
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {
@@ -93,6 +93,7 @@ public class JujutsufinMod
             event.enqueueWork(() -> {
                 MenuScreens.register(JujutsufinGUI.KENJAKUCOPIESMENU.get(), KenjakuCopiesGUI::new);
                 MenuScreens.register(JujutsufinGUI.CUSTOMTECHNIQUESMENU.get(), CustomTechniquesGUI::new);
+                MenuScreens.register(JujutsufinGUI.VEILSETTINGSMENU.get(), VeilSettingsGUI::new);
             });
         }
     }

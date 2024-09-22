@@ -44,23 +44,34 @@ public class ServerCustomTechniquesPacket {
         if (player == null) return;
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
-            if (type == 0) {
-                player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
-                    cap.CustomCT = 1;
-                    cap.syncPlayerCaps(player);
-                });
-                setTechnique(player, 102, 250);
-            } else if (type == 1){
-                setTechnique(player, 100, 200);
-            } else if (type == 2) {
-                setTechnique(player, 102, 200);
-            } else if (type == 3) {
-                ChangeCursedTechniqueRightClickedInAirProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
-            } else if (type == 4) {
-                player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
-                    cap.CustomCT = 0;
-                    cap.syncPlayerCaps(player);
-                });
+            switch (type) {
+                case 0: {
+                    player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+                        cap.CustomCT = 1;
+                        cap.syncPlayerCaps(player);
+                    });
+                    setTechnique(player, 102, 250);
+                    break;
+                }
+                case 1: {
+                    setTechnique(player, 100, 200);
+                    break;
+                }
+                case 2: {
+                    setTechnique(player, 102, 200);
+                    break;
+                }
+                case 3: {
+                    ChangeCursedTechniqueRightClickedInAirProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
+                    break;
+                }
+                case 4: {
+                    player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+                        cap.CustomCT = 0;
+                        cap.syncPlayerCaps(player);
+                    });
+                    break;
+                }
             }
         }
     }
@@ -70,10 +81,9 @@ public class ServerCustomTechniquesPacket {
             cap.PlayerCurseTechnique = technique;
             cap.PlayerCurseTechnique2 = technique;
             cap.PlayerCursePowerFormer = former;
-            cap.PlayerCursePowerMAX = cap.PlayerCursePowerFormer * cap.PlayerLevel;
+            cap.PlayerCursePowerMAX = former * cap.PlayerLevel;
             cap.syncPlayerVariables(player);
         });
-        // this method not working as intended :p
         SelectedProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player, SelectTechniqueMenu.guistate);
     }
 

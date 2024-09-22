@@ -12,10 +12,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,7 +23,7 @@ public class JujutsufinItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, JujutsufinMod.MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, JujutsufinMod.MODID);
 
-    public static final RegistryObject<Item> CURSEDWOMB = ITEMS.register("cursedwomb", () -> new Item(new Item.Properties().stacksTo(9).rarity(Rarity.EPIC).food(new FoodProperties.Builder().alwaysEat().build())){
+    public static final RegistryObject<Item> CursedWomb = ITEMS.register("cursedwomb", () -> new Item(new Item.Properties().stacksTo(9).rarity(Rarity.EPIC).food(new FoodProperties.Builder().alwaysEat().build())){
         @Override
         public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
             livingEntity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
@@ -39,7 +36,7 @@ public class JujutsufinItems {
         }
     });
 
-    public static final  RegistryObject<Item> CUSTOMTECHCHANGER = ITEMS.register("customtechniquechanger", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {
+    public static final  RegistryObject<Item> CustomTechniqueChanger = ITEMS.register("customtechniquechanger", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {
         @Override
         public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
             if (player instanceof ServerPlayer serverPlayer) {
@@ -52,13 +49,20 @@ public class JujutsufinItems {
         }
     });
 
-    public static final RegistryObject<CreativeModeTab> JUJUTSUFINTABS = TABS.register("jujutsufin_tab",
+    public static final RegistryObject<BlockItem> VeilBlockItem = ITEMS.register("veil",
+            () -> new BlockItem(JujutsufinBlocks.VeilBlock.get(),
+                    new Item.Properties()
+                            .rarity(Rarity.EPIC)
+            )
+    );
+
+    public static final RegistryObject<CreativeModeTab> JujutsufinTabs = TABS.register("jujutsufin_tab",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("jujutsufin.tab.jujutsufin"))
-                    .icon(CUSTOMTECHCHANGER.get()::getDefaultInstance)
+                    .icon(CustomTechniqueChanger.get()::getDefaultInstance)
                     .displayItems((displayParameters, output) -> {
-                        output.accept(CUSTOMTECHCHANGER.get());
-                        output.accept(CURSEDWOMB.get());
+                        output.accept(CustomTechniqueChanger.get());
+                        output.accept(CursedWomb.get());
                     })
                     .build()
     );

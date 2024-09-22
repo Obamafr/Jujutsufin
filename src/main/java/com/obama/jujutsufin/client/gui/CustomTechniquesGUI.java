@@ -51,23 +51,23 @@ public class CustomTechniquesGUI extends AbstractContainerScreen<CustomTechnique
         super.init();
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.kenjaku"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(0));
-            ServerCustomTechniquesPacket.keyPress(Minecraft.getInstance().player, 0);
+            ServerCustomTechniquesPacket.keyPress(player, 0);
         }).bounds(this.leftPos + 5,this.topPos + 20 , 100, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.utahime"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(1));
-            ServerCustomTechniquesPacket.keyPress(Minecraft.getInstance().player, 1);
+            ServerCustomTechniquesPacket.keyPress(player, 1);
         }).bounds(this.leftPos + 5,this.topPos + 50 , 100, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.kaori"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(2));
-            ServerCustomTechniquesPacket.keyPress(Minecraft.getInstance().player, 2);
+            ServerCustomTechniquesPacket.keyPress(player, 2);
         }).bounds(this.leftPos + 5,this.topPos + 80 , 100, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.jujutsucraft"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(3));
-            ServerCustomTechniquesPacket.keyPress(Minecraft.getInstance().player, 3);
+            ServerCustomTechniquesPacket.keyPress(player, 3);
         }).bounds(this.leftPos + 5,this.topPos + 140 , 100, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.reset"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(4));
-            ServerCustomTechniquesPacket.keyPress(Minecraft.getInstance().player, 4);
+            ServerCustomTechniquesPacket.keyPress(player, 4);
         }).bounds(this.leftPos + 115,this.topPos + 140 , 100, 20).build());
     }
 }

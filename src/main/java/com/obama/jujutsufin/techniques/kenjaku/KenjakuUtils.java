@@ -9,6 +9,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CTNames;
+import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CustomNames;
+
 public class KenjakuUtils {
     public static void rightClickPlayer(Player player, Player target) {
         if (addTechnique(player, (int) target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique)) {
@@ -61,8 +64,14 @@ public class KenjakuUtils {
     }
 
     public static String getCurrentTechnique2(Player player) {
-        double Technique2 = player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique2;
-        return "" + Technique2;
+        int Technique2 = (int) player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique2;
+        if (Technique2 >= 100 && Technique2 - 100 < CustomNames.length) {
+            Technique2 -= 100;
+            return CustomNames[Technique2] + " - " + (Technique2 + 100);
+        }
+        Technique2++;
+        if (Technique2 < 0 || Technique2 >= CTNames.length) return "Error - " + (Technique2 - 1);
+        return CTNames[Technique2] + " - " + (Technique2 - 1);
     }
 
     public static void deleteTechnique(Player player) {

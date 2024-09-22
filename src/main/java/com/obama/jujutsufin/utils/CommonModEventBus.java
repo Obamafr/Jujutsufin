@@ -11,6 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 public class CommonModEventBus {
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(JujutsufinEntities.VEIL.get(), VeilEntity.createAttributes().build());
+        event.put(JujutsufinEntities.Veil.get(), VeilEntity.createAttributes().build());
     }
 }

@@ -28,5 +28,10 @@
   "jujutsufin.keybinds.passivehotkey": "Passive Hotkey",
   "jujutsufin.tab.jujutsufin": "JujutsuFIN",
   "jujutsufin.veils.spawn" : "Spawn Veil",
-  "jujutsufin.veils.despawn": "Break Veil"
+  "jujutsufin.veils.despawn": "Break Veil",
+  "jujutsufin.menu.veilsettings" : "Veil Settings",
+  "jujutsufin.effect.burnout" : "RCT Burnout",
+  "jujutsufin.effect.gravity" : "Gravity",
+  "jujutsufin.keybinds.veilhotkey" : "Spawn / Despawn Veil",
+  "jujutsufin.keybinds.veilsettings" : "Open Veil Settings"
 }
