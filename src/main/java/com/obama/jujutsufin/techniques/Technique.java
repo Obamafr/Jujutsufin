@@ -2,6 +2,7 @@ package com.obama.jujutsufin.techniques;
 
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,11 +47,17 @@ public class Technique {
 
     public static boolean canDomain(Player player) {
         if (ignoreRequirements(player)) return true;
-        return (player instanceof ServerPlayer serverPlayer && serverPlayer.getAdvancements().getOrStartProgress(serverPlayer.server.getAdvancements().getAdvancement(DOMAINEXPANSIONADV)).isDone());
+        if (!(player instanceof ServerPlayer serverPlayer)) return false;
+        Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(DOMAINEXPANSIONADV);
+        if (advancement == null) return false;
+        return (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone());
     }
 
     public static boolean canRCT(Player player) {
         if (ignoreRequirements(player)) return true;
-        return (player instanceof ServerPlayer serverPlayer && serverPlayer.getAdvancements().getOrStartProgress(serverPlayer.server.getAdvancements().getAdvancement(REVERSECURSETECHNIQUE1)).isDone());
+        if (!(player instanceof ServerPlayer serverPlayer)) return false;
+        Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(REVERSECURSETECHNIQUE1);
+        if (advancement == null) return false;
+        return (serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone());
     }
 }

@@ -39,7 +39,7 @@ public class ServerKenjakuChangeTechPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerKenjakuChangeTechPacket.class, ServerKenjakuChangeTechPacket::encoder, ServerKenjakuChangeTechPacket::new, ServerKenjakuChangeTechPacket::handler);
     }
 }

@@ -12,7 +12,9 @@
     "MixinDPBEffectTick",
     "MixinRangeAttackProcedure",
     "MixinReverseCurseTechnique",
-    "MixinPlayerTickEvent"
+    "MixinPlayerTickEvent",
+    "MixinMasterSkills",
+    "MixinSelectTechniqueScreen"
   ],
   "client": [],
   "server": []

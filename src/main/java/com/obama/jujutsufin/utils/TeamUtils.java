@@ -1,4 +1,4 @@
-package com.obama.jujutsufin.commands;
+package com.obama.jujutsufin.utils;
 
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;

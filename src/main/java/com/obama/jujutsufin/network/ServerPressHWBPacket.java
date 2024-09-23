@@ -43,7 +43,7 @@ public class ServerPressHWBPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerPressHWBPacket.class, ServerPressHWBPacket::encoder, ServerPressHWBPacket::new, ServerPressHWBPacket::handler);
     }
 }

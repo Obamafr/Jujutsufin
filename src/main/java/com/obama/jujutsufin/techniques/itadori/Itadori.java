@@ -4,6 +4,7 @@ import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.techniques.Technique;
 import net.mcreator.jujutsucraft.entity.BloodBallEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,6 +16,11 @@ public class Itadori extends Technique {
         boolean found = false;
         int CurseWombs = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).EatenWombs;
         if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return false;
+        if (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get())) {
+            if (selected == 7 && CurseWombs >= 7) {
+                return setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(),0, true, false);
+            }
+        }
         switch (selected) {
             case 5: {
                 if (CurseWombs >= 2) {
@@ -42,7 +48,7 @@ public class Itadori extends Technique {
             }
             case 9: {
                 if (CurseWombs >= 7) {
-                    found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(), (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get()) ? 0 : 100), true, false);
+                    found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(),100, true, false);
                 }
                 break;
             }
@@ -59,8 +65,11 @@ public class Itadori extends Technique {
                 break;
             }
             case 19: {
-                if (player instanceof ServerPlayer serverPlayer && serverPlayer.getAdvancements().getOrStartProgress(serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:sukuna_finger_1"))).isDone()) {
-                    found = setInfo(player, selected, Component.translatable("effect.sukuna_effect").getString(), 0, true, true);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    Advancement advancement = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:sukuna_finger_1"));
+                    if (advancement != null && serverPlayer.getAdvancements().getOrStartProgress(advancement).isDone()) {
+                        found = setInfo(player, selected, Component.translatable("effect.sukuna_effect").getString(), 0, true, true);
+                    }
                 }
                 break;
             }

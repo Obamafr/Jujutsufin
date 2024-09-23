@@ -116,7 +116,7 @@ public class ServerHotkeyButtonsPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerHotkeyButtonsPacket.class, ServerHotkeyButtonsPacket::encoder, ServerHotkeyButtonsPacket::new, ServerHotkeyButtonsPacket::handler);
     }
 }

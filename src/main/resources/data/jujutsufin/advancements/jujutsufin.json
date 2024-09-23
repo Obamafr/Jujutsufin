@@ -1,5 +1,7 @@
 {
+
   "display": {
+    "background": "minecraft:textures/block/stone.png",
     "icon": {
       "item": "jujutsufin:customtechniquechanger"
     },
@@ -7,7 +9,8 @@
     "description": "fr.",
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": true,
+    "hidden": false
   },
   "criteria": {
     "requirement": {

@@ -3,7 +3,10 @@ package com.obama.jujutsufin.network;
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.init.JujutsufinEffects;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -39,16 +42,21 @@ public class ServerPressedBurnoutPacket {
         if (player.hasEffect(JujutsucraftModMobEffects.BRAIN_DAMAGE.get())) return;
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
-            if (pressed) {
-                player.addEffect(new MobEffectInstance(JujutsufinEffects.BURNOUT.get(), -1, 0, false, true));
-            } else {
-                player.removeEffect(JujutsufinEffects.BURNOUT.get());
+            if (player instanceof ServerPlayer serverPlayer) {
+                Advancement burnout = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:burnout"));
+                if (burnout != null && serverPlayer.getAdvancements().getOrStartProgress(burnout).isDone()) {
+                    if (pressed) {
+                        player.addEffect(new MobEffectInstance(JujutsufinEffects.BURNOUT.get(), -1, 0, false, true));
+                    } else {
+                        player.removeEffect(JujutsufinEffects.BURNOUT.get());
+                    }
+                }
             }
         }
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerPressedBurnoutPacket.class, ServerPressedBurnoutPacket::encoder, ServerPressedBurnoutPacket::new, ServerPressedBurnoutPacket::handler);
     }
 }

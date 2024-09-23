@@ -53,6 +53,25 @@ public final class JujutsufinKeybinds {
             this.wasDown = isDown;
         }
     };
+    public final KeyMapping AutoRCT = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.autorct").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_K, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressAutoRCTPacket());
+                ServerPressAutoRCTPacket.keyPress(Minecraft.getInstance().player);
+            }
+            this.wasDown = isDown;
+        }
+    };
     public final KeyMapping HollowWickerBasket = new KeyMapping(
             Component.translatable("jujutsufin.keybinds.hwbbutton").getString(),
             KeyConflictContext.IN_GAME,

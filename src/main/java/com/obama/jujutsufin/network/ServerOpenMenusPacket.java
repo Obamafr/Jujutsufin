@@ -2,6 +2,7 @@ package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import com.obama.jujutsufin.world.CustomTechniquesMenu;
 import com.obama.jujutsufin.world.KenjakuCopiesMenu;
 import com.obama.jujutsufin.world.VeilSettingsMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -58,24 +59,26 @@ public class ServerOpenMenusPacket {
         }
     }
 
-    private static Component getNameFromType(int type) {
+    public static Component getNameFromType(int type) {
         return switch (type) {
             case 1 -> Component.translatable("jujutsufin.menu.kenjakucopies");
             case 2 -> Component.translatable("jujutsufin.menu.veilsettings");
+            case 3 -> Component.translatable("jujutsufin.menu.customtech");
             default -> Component.empty();
         };
     }
 
-    private static AbstractContainerMenu getMenuFromType(int type, int id, Inventory inventory, Player player) {
+    public static AbstractContainerMenu getMenuFromType(int type, int id, Inventory inventory, Player player) {
         return switch (type) {
             case 1 -> new KenjakuCopiesMenu(id, inventory);
             case 2 -> new VeilSettingsMenu(id, inventory);
+            case 3 -> new CustomTechniquesMenu(id, inventory);
             default -> new CraftingMenu(id, inventory);
         };
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerOpenMenusPacket.class, ServerOpenMenusPacket::encoder, ServerOpenMenusPacket::new, ServerOpenMenusPacket::handler);
     }
 }

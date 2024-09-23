@@ -82,6 +82,7 @@ public class JujutsufinMod
             event.register(JujutsufinKeybinds.JFK.PassiveHotkey);
             event.register(JujutsufinKeybinds.JFK.VeilHotkey);
             event.register(JujutsufinKeybinds.JFK.VeilSettings);
+            event.register(JujutsufinKeybinds.JFK.AutoRCT);
         }
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {

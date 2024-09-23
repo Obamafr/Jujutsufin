@@ -47,7 +47,7 @@ public class ServerKenjakuGUIButtonPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerKenjakuGUIButtonPacket.class, ServerKenjakuGUIButtonPacket::encoder, ServerKenjakuGUIButtonPacket::new, ServerKenjakuGUIButtonPacket::handler);
     }
 }

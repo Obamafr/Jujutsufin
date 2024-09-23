@@ -2,10 +2,6 @@ package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
-import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
-import net.mcreator.jujutsucraft.procedures.ChangeCursedTechniqueRightClickedInAirProcedure;
-import net.mcreator.jujutsucraft.procedures.SelectedProcedure;
-import net.mcreator.jujutsucraft.world.inventory.SelectTechniqueMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -77,7 +73,7 @@ public class ServerVeilSettingsButtonsPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerVeilSettingsButtonsPacket.class, ServerVeilSettingsButtonsPacket::encoder, ServerVeilSettingsButtonsPacket::new, ServerVeilSettingsButtonsPacket::handler);
     }
 }

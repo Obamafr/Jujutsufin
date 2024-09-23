@@ -2,8 +2,6 @@ package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
-import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
-import net.mcreator.jujutsucraft.init.JujutsucraftModItems;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.ChangeCursedTechniqueRightClickedInAirProcedure;
 import net.mcreator.jujutsucraft.procedures.SelectedProcedure;
@@ -88,7 +86,7 @@ public class ServerCustomTechniquesPacket {
     }
 
     @SubscribeEvent
-    public static void registerMessage(FMLCommonSetupEvent event) {
+    public static void registerPacket(FMLCommonSetupEvent event) {
         JujutsufinMod.addPacket(ServerCustomTechniquesPacket.class, ServerCustomTechniquesPacket::encoder, ServerCustomTechniquesPacket::new, ServerCustomTechniquesPacket::handler);
     }
 }
