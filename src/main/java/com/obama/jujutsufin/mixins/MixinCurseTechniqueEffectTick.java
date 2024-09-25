@@ -5,6 +5,7 @@ import com.obama.jujutsufin.techniques.kaori.KaoriUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
 import com.obama.jujutsufin.techniques.veils.VeilsUtils;
 import net.mcreator.jujutsucraft.procedures.CursedTechniqueOnPotionActiveTickProcedure;
+import net.mcreator.jujutsucraft.procedures.KashimoDomainProcedure;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,6 +31,9 @@ public class MixinCurseTechniqueEffectTick {
                 found = KaoriUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 2100 && skill < 2200) {
                 found = ItadoriUtils.execute(serverLevel, x, y, z, livingEntity, skill);
+            } else if (skill == 720) {
+                KashimoDomainProcedure.execute(serverLevel, x, y, z, livingEntity);
+                found = true;
             }
             if (found) {
                 ci.cancel();

@@ -78,11 +78,12 @@ public class ServerCustomTechniquesPacket {
         player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
             cap.PlayerCurseTechnique = technique;
             cap.PlayerCurseTechnique2 = technique;
+            cap.syncPlayerVariables(player);
+            SelectedProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player, SelectTechniqueMenu.guistate);
             cap.PlayerCursePowerFormer = former;
             cap.PlayerCursePowerMAX = former * cap.PlayerLevel;
             cap.syncPlayerVariables(player);
         });
-        SelectedProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player, SelectTechniqueMenu.guistate);
     }
 
     @SubscribeEvent

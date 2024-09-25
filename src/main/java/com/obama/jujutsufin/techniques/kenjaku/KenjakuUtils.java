@@ -5,6 +5,7 @@ import com.obama.jujutsufin.init.JujutsufinGameRules;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -46,6 +47,7 @@ public class KenjakuUtils {
             cap.PlayerCurseTechnique2 = (KenjakuCopies.get(value) instanceof IntTag it ? it.getAsDouble() : cap.PlayerCurseTechnique2);
             cap.syncPlayerVariables(player);
         });
+        player.displayClientMessage(Component.literal(getCurrentTechnique2(player)), true);
     }
 
     public static void moveGUI(Player player, int type) {

@@ -14,4 +14,7 @@ public class JujutsufinGameRules {
     public static final GameRules.Key<GameRules.IntegerValue> VeilRadius = GameRules.register("jjkfinVeilRadius", GameRules.Category.PLAYER, GameRules.IntegerValue.create(40));
     public static final GameRules.Key<GameRules.IntegerValue> KenjakuLimit = GameRules.register("jjkfinKenjakuTechniquesLimit", GameRules.Category.PLAYER, GameRules.IntegerValue.create(3));
     public static final GameRules.Key<GameRules.BooleanValue> SukunaPVP = GameRules.register("jjkfinSukunaPVP", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true));
+    public static final GameRules.Key<GameRules.BooleanValue> KashimoDomain = GameRules.register("jjkfinKashimoDomain", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true));
+    public static final GameRules.Key<GameRules.BooleanValue> MBANoDeath = GameRules.register("jjkfinMBANoDeath", GameRules.Category.PLAYER, GameRules.BooleanValue.create(false));
+    public static GameRules.Key<GameRules.BooleanValue> KenjakuKeepTechniques = GameRules.register("jjkfinKenjakuKeepTechniques", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true));
 }

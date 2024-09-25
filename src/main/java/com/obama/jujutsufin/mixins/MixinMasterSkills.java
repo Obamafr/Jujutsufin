@@ -32,4 +32,22 @@ public class MixinMasterSkills {
             }
         }
     }
+
+    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;", ordinal = 5), cancellable = true, remap = false)
+    private static void grantVeil(LevelAccessor world, double x, double y, double z, Entity entity, ItemStack itemstack, CallbackInfo ci) {
+        if (entity instanceof ServerPlayer serverPlayer) {
+            Advancement sd = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:mastery_simple_domain"));
+            if (sd != null && serverPlayer.getAdvancements().getOrStartProgress(sd).isDone()) {
+                Advancement veil = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:veil"));
+                if (veil != null) {
+                    AdvancementProgress veilProgress = serverPlayer.getAdvancements().getOrStartProgress(veil);
+                    if (!veilProgress.isDone()) {
+                        veilProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(veil, c));
+                        itemstack.shrink(1);
+                        ci.cancel();
+                    }
+                }
+            }
+        }
+    }
 }

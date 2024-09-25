@@ -16,12 +16,12 @@ public class SFABuffs extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amp) {
-        float newHealth = livingEntity.getHealth() + (1 / livingEntity.getMaxHealth());
+        float newHealth = livingEntity.getHealth() + (8 / livingEntity.getMaxHealth());
         livingEntity.setHealth(newHealth);
     }
 
     @Override
-    public boolean isDurationEffectTick(int a, int b) {return true;}
+    public boolean isDurationEffectTick(int a, int b) {return a % 2 == 0;}
 
     @Override
     public String getDescriptionId() {return "jujutsufin.effect.sfabuff";}

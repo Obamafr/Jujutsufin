@@ -17,8 +17,10 @@ public class Itadori extends Technique {
         int CurseWombs = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).EatenWombs;
         if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return false;
         if (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get())) {
-            if (selected == 7 && CurseWombs >= 7) {
+            if (selected == 9 && CurseWombs >= 7) {
                 return setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(),0, true, false);
+            } else {
+                return switchDefault(player, selected);
             }
         }
         switch (selected) {

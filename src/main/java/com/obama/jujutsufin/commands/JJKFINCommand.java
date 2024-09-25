@@ -3,6 +3,7 @@ package com.obama.jujutsufin.commands;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -57,6 +58,16 @@ public class JJKFINCommand {
                         player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                             cap.BurnoutCost = DoubleArgumentType.getDouble(c, "number");
                             cap.syncPlayerCaps(player);
+                        });
+                    }
+                    return 1;
+                })))).then(Commands.literal("cursepowerformer").then(Commands.argument("players", EntityArgument.players()).then(Commands.argument("number", DoubleArgumentType.doubleArg()).executes(c -> {
+                    double former = DoubleArgumentType.getDouble(c, "number");
+                    for (Player player : EntityArgument.getPlayers(c, "players")) {
+                        player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
+                            cap.PlayerCursePowerFormer = former;
+                            cap.PlayerCursePowerMAX = former * cap.PlayerLevel;
+                            cap.syncPlayerVariables(player);
                         });
                     }
                     return 1;

@@ -14,7 +14,7 @@ public class Utahime extends Technique {
             }
             case 20: {
                 if (canDomain(player) && !player.hasEffect(DOMAINEXPANSIONEFT)) {
-                    found = setInfo(player, selected, Component.translatable("jujutsufin.utahime.20").getString(), 1250, false, false);
+                    found = setInfo(player, selected, Component.translatable("jujutsufin.utahime.20").getString(), 1000, false, false);
                 }
                 break;
             }

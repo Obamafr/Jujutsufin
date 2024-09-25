@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(value = LogicAttackProcedure.class, priority = 1001)
 public abstract class MixinLogicAttackProcedure {
     @ModifyVariable(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getPersistentData()Lnet/minecraft/nbt/CompoundTag;", ordinal = 30), ordinal = 0, remap = false)
-    private static boolean onExecute(boolean logic, LevelAccessor world, double x, double y, double z, Entity entity) {
+    private static boolean onExecute(boolean logic, LevelAccessor world, Entity entity) {
         return world.getLevelData().getGameRules().getBoolean(JujutsufinGameRules.SukunaPVP) && entity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).flag_sukuna || logic;
     }
 }

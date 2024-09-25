@@ -54,7 +54,7 @@ public class GravityEffect extends MobEffect {
             }
         }
         livingEntity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
-            cap.PlayerCursePowerChange -= 2;
+            cap.PlayerCursePowerChange -= 1;
             cap.syncPlayerVariables(livingEntity);
         });
     }

@@ -2,6 +2,8 @@ package com.obama.jujutsufin.utils;
 
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import com.obama.jujutsufin.init.JujutsufinEffects;
+import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
 import net.mcreator.jujutsucraft.entity.BlackHoleEntity;
@@ -12,6 +14,7 @@ import net.mcreator.jujutsucraft.procedures.KeyReverseCursedTechniqueOnKeyReleas
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
@@ -23,6 +26,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,6 +34,15 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = JujutsufinMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonForgeEventBus {
+    @SubscribeEvent
+    public static void PlayerDies(LivingDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (!entity.level().getLevelData().getGameRules().getBoolean(JujutsufinGameRules.KenjakuKeepTechniques)) {
+            entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+                cap.KenjakuCopies = new ListTag();
+            });
+        }
+    }
     @SubscribeEvent
     public static void PlayerTickEvent(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
@@ -62,6 +75,9 @@ public class CommonForgeEventBus {
         Entity source = damageSource.getEntity();
         if (target.hasEffect(MobEffects.LEVITATION) && source instanceof BlackHoleEntity && event.isCancelable()) {
             event.setCanceled(true);
+        }
+        if (target.hasEffect(JujutsufinEffects.GRAVITY.get())) {
+            event.setAmount(event.getAmount()/1.5F);
         }
         if (!damageSource.is(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("forge:animation")))
                 && !damageSource.is(DamageTypes.GENERIC_KILL)

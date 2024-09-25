@@ -1,5 +1,6 @@
 package com.obama.jujutsufin.effects;
 
+import com.obama.jujutsufin.init.JujutsufinEffects;
 import com.obama.jujutsufin.init.JujutsufinParticles;
 import com.obama.jujutsufin.utils.ParticleUtils;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
@@ -41,18 +42,18 @@ public class HWBEffect extends MobEffect {
                     break;
                 }
             }
-            LazyOptional<JujutsucraftModVariables.PlayerVariables> playerVariables = livingEntity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null);
-            double energy = playerVariables.orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCursePower;
-            if (energy <= 5 || livingEntity.getHealth() <= (livingEntity.getMaxHealth() / 3)) {
+            double energy = livingEntity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCursePower;
+            if (energy <= 5 || livingEntity.getHealth() <= (livingEntity.getMaxHealth() / 3) || livingEntity.hasEffect(JujutsucraftModMobEffects.DOMAIN_EXPANSION.get())) {
                 livingEntity.removeEffect(this);
-                livingEntity.removeEffect(UNSTABLE);
+                livingEntity.addEffect(new MobEffectInstance(JujutsufinEffects.HWBCOOLDOWN.get(), 600));
                 livingEntity.removeEffect(SIMPLEDOMAIN);
+                return;
             }
-            playerVariables.ifPresent(cap -> {
-                cap.PlayerCursePowerChange -= 5;
+            livingEntity.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent(cap -> {
+                cap.PlayerCursePower -= 2.5;
                 cap.syncPlayerVariables(livingEntity);
             });
-            livingEntity.addEffect(new MobEffectInstance(UNSTABLE, -1, 0));
+            livingEntity.addEffect(new MobEffectInstance(UNSTABLE, 22, 0));
             if (!found) {
                 livingEntity.addEffect(new MobEffectInstance(SIMPLEDOMAIN, -1, 0));
             } else {
@@ -64,7 +65,6 @@ public class HWBEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap map, int a) {
         super.removeAttributeModifiers(livingEntity, map, a);
-        livingEntity.removeEffect(UNSTABLE);
         livingEntity.removeEffect(SIMPLEDOMAIN);
     }
 

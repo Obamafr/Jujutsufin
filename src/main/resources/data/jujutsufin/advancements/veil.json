@@ -1,0 +1,19 @@
+{
+  "parent": "jujutsufin:jujutsufin",
+  "display": {
+    "icon": {
+      "item": "jujutsucraft:item_master_simple_domain"
+    },
+    "title": "Unlock Veils",
+    "description": "From using techniques.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

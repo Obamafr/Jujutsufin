@@ -7,7 +7,11 @@ import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyReleasedProcedure;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -59,6 +63,12 @@ public class ServerHotkeyButtonsPacket {
     }
 
     private static void VeilHotkey(Player player, boolean pressed) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            Advancement veil = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:veil"));
+            if (veil != null) {
+                if (!serverPlayer.getAdvancements().getOrStartProgress(veil).isDone()) return;
+            }
+        }
         if (pressed) {
             player.getPersistentData().putDouble("skill", 50000);
             player.getPersistentData().putBoolean("PRESS_Z", true);

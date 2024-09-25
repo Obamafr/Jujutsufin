@@ -14,7 +14,15 @@
     "MixinReverseCurseTechnique",
     "MixinPlayerTickEvent",
     "MixinMasterSkills",
-    "MixinSelectTechniqueScreen"
+    "MixinSelectTechniqueScreen",
+    "MixinLogicAttackProcedure",
+    "MixinMythicalBeastAmber",
+    "MixinSukunaEffect",
+    "MixinCooldownTimeEffect",
+    "MixinCooldownTimeCombatMobEffect",
+    "MixinUnstableEffect",
+    "MixinBrainDamageEffect",
+    "MixinStartTechnique"
   ],
   "client": [],
   "server": []
