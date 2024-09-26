@@ -1,6 +1,7 @@
 package com.obama.jujutsufin.techniques.itadori;
 
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.Technique;
 import net.mcreator.jujutsucraft.entity.BloodBallEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
@@ -15,6 +16,7 @@ public class Itadori extends Technique {
     public static boolean execute(Player player, int selected){
         boolean found = false;
         int CurseWombs = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).EatenWombs;
+        if (!player.level().getLevelData().getGameRules().getBoolean(JujutsufinGameRules.YujiBloodManipulation)) return false;
         if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return false;
         if (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get())) {
             if (selected == 9 && CurseWombs >= 7) {
