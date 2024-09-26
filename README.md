@@ -1,10 +1,8 @@
 # Minecraft 1.20.1 Jujutsucraft Addon 
 
+### **JujutsuFIN is an addon focused on QOL and Utility for Orca's Jujutsucraft Mod**
+
 [Jujutsufin CurseForge](https://www.curseforge.com/minecraft/mc-mods/jujutsufi)
-
-**Not intended to be used in current state**
-
-**This Repository is only public to be used as a reference**
 
 [Jujutsucraft CurseForge](https://www.curseforge.com/minecraft/mc-mods/sorceryfight)
 
