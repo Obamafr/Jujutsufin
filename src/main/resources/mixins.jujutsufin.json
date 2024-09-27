@@ -4,6 +4,7 @@
   "package": "com.obama.jujutsufin.mixins",
   "refmap": "mixins.jujutsufin.refmap.json",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "com.obama.jujutsufin.mixin.JujutsufinMixinPlugin",
   "mixins": [
     "MixinKeyChangeTechniqueOnKeyPressed",
     "MixinCurseTechniqueEffectTick",
@@ -22,7 +23,8 @@
     "MixinCooldownTimeCombatMobEffect",
     "MixinUnstableEffect",
     "MixinBrainDamageEffect",
-    "MixinStartTechnique"
+    "MixinStartTechnique",
+    "MixinGTKenjakuDeAuth"
   ],
   "client": [],
   "server": []

@@ -5,8 +5,10 @@ import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.world.CustomTechniquesMenu;
 import com.obama.jujutsufin.world.KenjakuCopiesMenu;
 import com.obama.jujutsufin.world.VeilSettingsMenu;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -48,13 +50,16 @@ public class ServerOpenMenusPacket {
         if (player == null) return;
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
-            if (player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).CustomCT == 1) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-                            (id, inventory, mPlayer) -> getMenuFromType(type, id, inventory, mPlayer),
-                            getNameFromType(type)
-                    ));
-                }
+            if (player instanceof ServerPlayer serverPlayer) {
+                Advancement veil = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:veil"));
+                if (veil == null) return;
+                if (type == 1 && !(serverPlayer.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).CustomCT == 1)
+                    || type == 2 && !serverPlayer.getAdvancements().getOrStartProgress(veil).isDone()
+                ) return;
+                NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
+                        (id, inventory, mPlayer) -> getMenuFromType(type, id, inventory, mPlayer),
+                        getNameFromType(type)
+                ));
             }
         }
     }

@@ -12,14 +12,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class HWBEffect extends MobEffect {
-    public MobEffect SIMPLEDOMAIN = JujutsucraftModMobEffects.SIMPLE_DOMAIN.get();
-    public MobEffect UNSTABLE = JujutsucraftModMobEffects.UNSTABLE.get();
 
     public HWBEffect() {
         super(MobEffectCategory.BENEFICIAL, 9672601);
@@ -27,6 +24,8 @@ public class HWBEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amp) {
+        MobEffect SIMPLEDOMAIN = JujutsucraftModMobEffects.SIMPLE_DOMAIN.get();
+        MobEffect UNSTABLE = JujutsucraftModMobEffects.UNSTABLE.get();
         if (livingEntity.level() instanceof ServerLevel serverLevel) {
             double x = livingEntity.getX();
             double y = livingEntity.getY();
@@ -65,7 +64,7 @@ public class HWBEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(@NotNull LivingEntity livingEntity, @NotNull AttributeMap map, int a) {
         super.removeAttributeModifiers(livingEntity, map, a);
-        livingEntity.removeEffect(SIMPLEDOMAIN);
+        livingEntity.removeEffect(JujutsucraftModMobEffects.SIMPLE_DOMAIN.get());
     }
 
     @Override

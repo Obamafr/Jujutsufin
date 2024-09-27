@@ -4,7 +4,6 @@ import com.obama.jujutsufin.init.JujutsufinEffects;
 import com.obama.jujutsufin.techniques.Skill;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
-import net.mcreator.jujutsucraft.procedures.AttackContinueProcedure;
 import net.mcreator.jujutsucraft.procedures.AttackStrongProcedure;
 import net.mcreator.jujutsucraft.procedures.OtherDomainExpansionProcedure;
 import net.mcreator.jujutsucraft.procedures.RangeAttackProcedure;
@@ -15,7 +14,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -86,7 +84,7 @@ public class KaoriUtils extends Skill {
                 originData.putBoolean("PRESS_Z", false);
             }
         } else {
-            livingEntity.removeEffect(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get());
+            livingEntity.addEffect(new MobEffectInstance(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get(), 50));
             originData.putInt("cntG", 0);
             originData.putBoolean("antiGrav", false);
         }
@@ -128,7 +126,7 @@ public class KaoriUtils extends Skill {
                 originData.putBoolean("PRESS_Z", false);
             }
         } else {
-            livingEntity.removeEffect(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get());
+            livingEntity.addEffect(new MobEffectInstance(JujutsucraftModMobEffects.COOLDOWN_TIME_COMBAT.get(), 50));
             originData.putInt("cntG", 0);
         }
         return true;
