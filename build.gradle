@@ -93,6 +93,7 @@ dependencies {
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly fg.deobf("curse.maven:jjkm-1014693:5747690")
+    implementation fg.deobf("curse.maven:jujutsu-kaisen-gt-925091:5751341")
 }
 
 mixin {
