@@ -1,6 +1,6 @@
 package com.obama.jujutsufin.mixins;
 
-import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.LoadingModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class JujutsufinMixinPlugin implements IMixinConfigPlugin {
     private final Map<String, Boolean> REQUIREMENTS = Map.of(
-            "com.obama.jujutsufin.mixin.MixinGTKenjakuDeAuth", ModList.get().isLoaded("jujutsu_kaisen_gt_2")
+            "com.obama.jujutsufin.mixin.MixinGTKenjakuDeAuth", LoadingModList.get().getModFileById("jujutsu_kaisen_gt_2") != null
     );
 
     @Override

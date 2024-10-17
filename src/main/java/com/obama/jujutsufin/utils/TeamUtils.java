@@ -83,7 +83,8 @@ public class TeamUtils extends SavedData {
             if (!name.isEmpty()) {
                 CompoundTag tag = receiver.getPersistentData().getCompound("TeamInvites");
                 tag.putBoolean(name, true);
-                receiver.server.getCommands().performPrefixedCommand(receiver.createCommandSourceStack(), "tellraw @s {\"text\":\"You have been invited to team " + name + " click here to join.\\\",\\\"clickEvent\\\":{\\\"action\\\":\\\"run_command\\\",\\\"value\\\":\\\"/finteams join " + name + "\"}}");
+                receiver.getPersistentData().put("TeamInvites", tag);
+                receiver.server.getCommands().performPrefixedCommand(receiver.createCommandSourceStack(), "tellraw @s {\"text\":\"You have been invited to team " + name + " click here to join.\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/finteams join " + name + "\"}}");
             } else {
                 c.sendFailure(Component.literal("You don't have a team."));
             }
