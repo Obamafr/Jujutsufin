@@ -3,7 +3,10 @@ package com.obama.jujutsufin.network;
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.init.JujutsufinEffects;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -33,11 +36,14 @@ public class ServerPressHWBPacket {
         if (player == null) return;
         if (!player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).canHWB) return;
         Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition())) {
-            if (player.hasEffect(JujutsufinEffects.HWB.get())) {
-                player.removeEffect(JujutsufinEffects.HWB.get());
-            } else if (!player.hasEffect(JujutsufinEffects.HWBCOOLDOWN.get())) {
-                player.addEffect(new MobEffectInstance(JujutsufinEffects.HWB.get(), -1, 0));
+        if (world.hasChunkAt(player.blockPosition()) && player instanceof ServerPlayer serverPlayer) {
+            Advancement hwb = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:hwb"));
+            if (hwb != null && serverPlayer.getAdvancements().getOrStartProgress(hwb).isDone()) {
+                if (player.hasEffect(JujutsufinEffects.HWB.get())) {
+                    player.removeEffect(JujutsufinEffects.HWB.get());
+                } else if (!player.hasEffect(JujutsufinEffects.HWBCOOLDOWN.get())) {
+                    player.addEffect(new MobEffectInstance(JujutsufinEffects.HWB.get(), -1, 0));
+                }
             }
         }
     }

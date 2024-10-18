@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AuthenticCursedTechniqueMobEffect.class)
-public class MixinGTKenjakuDeAuth extends MobEffect {
-    public MixinGTKenjakuDeAuth() {
+public class MixinGTAuthTechnique extends MobEffect {
+    public MixinGTAuthTechnique() {
         super(MobEffectCategory.BENEFICIAL, -6684673);
     }
 

@@ -38,13 +38,21 @@ public class MixinMasterSkills {
         if (entity instanceof ServerPlayer serverPlayer) {
             Advancement sd = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:mastery_simple_domain"));
             if (sd != null && serverPlayer.getAdvancements().getOrStartProgress(sd).isDone()) {
+                Advancement hwb = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:hwb"));
                 Advancement veil = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:veil"));
-                if (veil != null) {
+                if (veil != null && hwb != null) {
                     AdvancementProgress veilProgress = serverPlayer.getAdvancements().getOrStartProgress(veil);
                     if (!veilProgress.isDone()) {
                         veilProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(veil, c));
                         itemstack.shrink(1);
                         ci.cancel();
+                    } else {
+                        AdvancementProgress hwbProgress = serverPlayer.getAdvancements().getOrStartProgress(hwb);
+                        if (!hwbProgress.isDone()) {
+                            hwbProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(hwb, c));
+                            itemstack.shrink(1);
+                            ci.cancel();
+                        }
                     }
                 }
             }

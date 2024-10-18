@@ -24,7 +24,9 @@
     "MixinUnstableEffect",
     "MixinBrainDamageEffect",
     "MixinStartTechnique",
-    "MixinGTKenjakuDeAuth"
+    "MixinGTAuthTechnique",
+    "MixinGTTechnique1",
+    "MixinGTTechnique2"
   ],
   "client": [],
   "server": []

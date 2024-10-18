@@ -10,8 +10,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class JujutsufinMixinPlugin implements IMixinConfigPlugin {
+    public static final boolean GT_2 = LoadingModList.get().getModFileById("jujutsu_kaisen_gt_2") != null;
+
     private final Map<String, Boolean> REQUIREMENTS = Map.of(
-            "com.obama.jujutsufin.mixin.MixinGTKenjakuDeAuth", LoadingModList.get().getModFileById("jujutsu_kaisen_gt_2") != null
+            "com.obama.jujutsufin.mixins.MixinGTAuthTechnique", GT_2,
+            "com.obama.jujutsufin.mixins.MixinGTTechnique1", GT_2,
+            "com.obama.jujutsufin.mixins.MixinGTTechnique2", GT_2
     );
 
     @Override
