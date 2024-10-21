@@ -11,27 +11,27 @@ public class ItadoriUtils {
         CompoundTag ForgeData = livingEntity.getPersistentData();
         skill %= 2100;
         switch (skill) {
-            case 5: {
+            case 6: {
                 found = true;
                 ForgeData.putDouble("skill", 1005);
                 break;
             }
-            case 6: {
+            case 7: {
                 found = true;
                 ForgeData.putDouble("skill", 1006);
                 break;
             }
-            case 7: {
+            case 8: {
                 found = true;
                 PiercingBloodProcedure.execute(serverLevel, x, y, z, livingEntity);
                 break;
             }
-            case 8: {
+            case 9: {
                 found = true;
                 ForgeData.putDouble("skill", 1008);
                 break;
             }
-            case 9: {
+            case 10: {
                 found = true;
                 TechniqueFlowingRedScaleProcedure.execute(serverLevel, x, y, z, livingEntity);
                 break;
@@ -46,7 +46,7 @@ public class ItadoriUtils {
                 ForgeData.putDouble("skill", 1018);
                 break;
             }
-            case 20: {
+            case 22: {
                 ChosoDomainExpansionProcedure.execute(serverLevel, x, y, z, livingEntity);
                 found = true;
                 break;

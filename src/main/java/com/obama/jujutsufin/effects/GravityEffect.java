@@ -42,7 +42,7 @@ public class GravityEffect extends MobEffect {
                     }
                 }
             }
-            serverLevel.sendParticles(ParticleTypes.PORTAL, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 5, 2, 0, 2, 1);
+            serverLevel.sendParticles(ParticleTypes.PORTAL, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 15, 2, 0, 2, 1);
             double cntGEft = originData.getDouble("cntGEft");
             originData.putDouble("cntGEft",  cntGEft + 1);
             if (cntGEft % 40 == 0 && cntGEft != 0) {

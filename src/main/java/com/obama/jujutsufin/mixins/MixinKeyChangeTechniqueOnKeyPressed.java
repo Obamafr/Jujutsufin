@@ -81,6 +81,7 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     MobEffectInstance DOMAIN = player.getEffect(JujutsucraftModMobEffects.DOMAIN_EXPANSION.get());
                     double cost = cap.PlayerSelectCurseTechniqueCost;
                     double playerMultiplier;
+                    double gameRuleMultiplier;
                     double value;
                     if (STARRAGE != null && cap.PhysicalAttack && DOMAIN == null) {
                         cost += 10;
@@ -88,12 +89,14 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     }
                     if (SUKUNA != null) {
                         playerMultiplier = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).SukunaMultiplier;
-                        value = (playerMultiplier != -1 ? playerMultiplier/10 : 0.5);
+                        gameRuleMultiplier = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.SukunaMultiplier);
+                        value = (playerMultiplier != -1 ? playerMultiplier/10 : gameRuleMultiplier/10);
                         cost *= value;
                     }
                     if (SIXEYES != null) {
                         playerMultiplier = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).SixEyesMultiplier;
-                        value = (playerMultiplier != -1 ? playerMultiplier/10 : 0.1);
+                        gameRuleMultiplier = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.SixEyesMultiplier);
+                        value = (playerMultiplier != -1 ? playerMultiplier/10 : gameRuleMultiplier/10);
                         cost *= Math.pow(value, (SIXEYES.getAmplifier() + 1));
                     }
                     if (player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == JujutsucraftModItems.LOUDSPEAKER.get()) {

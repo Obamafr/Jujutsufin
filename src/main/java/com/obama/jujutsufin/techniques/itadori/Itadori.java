@@ -19,7 +19,7 @@ public class Itadori extends Technique {
         if (!player.level().getLevelData().getGameRules().getBoolean(JujutsufinGameRules.YujiBloodManipulation)) return false;
         if (player.hasEffect(JujutsucraftModMobEffects.SUKUNA_EFFECT.get())) return false;
         if (player.hasEffect(JujutsucraftModMobEffects.DEATH_PAINTING_BLOOD.get())) {
-            if (selected == 9 && CurseWombs >= 7) {
+            if (selected == 10 && CurseWombs >= 7) {
                 return setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(),0, true, false);
             } else {
                 return switchDefault(player, selected);
@@ -27,30 +27,34 @@ public class Itadori extends Technique {
         }
         switch (selected) {
             case 5: {
+                found = setInfo(player, selected, Component.translatable("jujutsu.technique.itadori1").getString(), 50, false, false);
+                break;
+            }
+            case 6: {
                 if (CurseWombs >= 2) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso1").getString(), 120, false, false);
                 }
                 break;
             }
-            case 6: {
+            case 7: {
                 if (CurseWombs >= 5) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso2").getString(), 25, true, false);
                 }
                 break;
             }
-            case 7: {
+            case 8: {
                 if (CurseWombs >= 1) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso3").getString(), 200, false, false);
                 }
                 break;
             }
-            case 8: {
+            case 9: {
                 if (CurseWombs >= 5 && isBloodBall(player)) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso4").getString(), 100, false, false);
                 }
                 break;
             }
-            case 9: {
+            case 10: {
                 if (CurseWombs >= 7) {
                     found = setInfo(player, selected, Component.translatable("jujutsu.technique.choso5").getString(),100, true, false);
                 }
@@ -78,8 +82,14 @@ public class Itadori extends Technique {
                 break;
             }
             case 20: {
+                if (canDomain(player) && !player.hasEffect(DOMAINEXPANSIONEFT)) {
+                    found = setInfo(player, selected, Component.translatable("effect.domain_expansion").getString() + " Itadori", 1000, false, false);
+                }
+                break;
+            }
+            case 22: {
                 if (canDomain(player) && CurseWombs >= 9 && !player.hasEffect(DOMAINEXPANSIONEFT)) {
-                    found = setInfo(player, selected, Component.translatable("effect.domain_expansion").getString(), 1250, false, false);
+                    found = setInfo(player, selected, Component.translatable("effect.domain_expansion").getString() + " Blood Manipulation", 1250, false, false);
                 }
                 break;
             }
