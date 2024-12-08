@@ -17,7 +17,7 @@ public class VeilsUtils {
 
     public static String[] CTNames = {"Maki", "None", "Sukuna", "Gojo", "Inumaki", "Jogo", "Okkotsu", "Megumi", "Kashimo", "Dagon", "Tsukumo", "Choso", "Mei Mei", "Ishigori", "Nanami", "Hanami", "Mahito", "Mahoraga", "Takaba", "Geto", "Naoya", "Todo", "Itadori", "Jinichi", "Kurourushi", "Uraume", "Small Pox Deity", "Ogi", "Higuruma", "Angel", "Hakari", "Miguel", "Kusukabe", "Chojuro", "Yaga", "Nobara", "Junpei", "Nishimiya", "Lakdawalla", "Uro", "Yorozu", "Ino"};
 
-    public static String[] CustomNames = {"Utahime", "None", "Kaori"};
+    public static String[] CustomNames = {"Utahime", "Rozetsu", "Kaori"};
 
     public static void veilP4(Player player, int i) {
         player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {

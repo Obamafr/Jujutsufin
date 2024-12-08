@@ -2,6 +2,7 @@ package com.obama.jujutsufin.mixins;
 
 import com.obama.jujutsufin.techniques.itadori.ItadoriUtils;
 import com.obama.jujutsufin.techniques.kaori.KaoriUtils;
+import com.obama.jujutsufin.techniques.rozetsu.RozetsuUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
 import com.obama.jujutsufin.techniques.veils.VeilsUtils;
 import net.mcreator.jujutsucraft.procedures.CursedTechniqueOnPotionActiveTickProcedure;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(CursedTechniqueOnPotionActiveTickProcedure.class)
+@Mixin(value = CursedTechniqueOnPotionActiveTickProcedure.class, priority = 999)
 public class MixinCurseTechniqueEffectTick {
     @Inject(method = "execute", at = @At("HEAD"), cancellable = true, remap = false)
     private static void onExecute(LevelAccessor world, double x, double y, double z, Entity entity, CallbackInfo ci) {
@@ -27,6 +28,8 @@ public class MixinCurseTechniqueEffectTick {
             }
             if (skill >= 10000 && skill < 10100) {
                 found = UtahimeUtils.execute(serverLevel, x, y, z, livingEntity, skill);
+            } else if (skill >= 10100 && skill < 10200) {
+                found = RozetsuUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 10200 && skill < 10300) {
                 found = KaoriUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 2100 && skill < 2200) {

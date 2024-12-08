@@ -78,6 +78,7 @@ public class JujutsufinPlayerCaps {
                     variables.Veils = message.data.Veils;
                     variables.SixEyesMultiplier = message.data.SixEyesMultiplier;
                     variables.SukunaMultiplier = message.data.SukunaMultiplier;
+                    variables.RozetsuCopies = message.data.RozetsuCopies;
                 }
             });
             context.setPacketHandled(true);
@@ -97,6 +98,7 @@ public class JujutsufinPlayerCaps {
         public double SixEyesMultiplier = 1;
         public double SukunaMultiplier = 5;
         public ListTag KenjakuCopies = new ListTag();
+        public ListTag RozetsuCopies = new ListTag();
         public CompoundTag Veils = new CompoundTag();
 
         public PlayerCaps() {
@@ -123,6 +125,7 @@ public class JujutsufinPlayerCaps {
             nbt.put("Veils", this.Veils);
             nbt.putDouble("SixEyesMultiplier", this.SixEyesMultiplier);
             nbt.putDouble("SukunaMultiplier", this.SukunaMultiplier);
+            nbt.put("RozetsuCopies", this.RozetsuCopies);
             return nbt;
         }
 
@@ -141,6 +144,7 @@ public class JujutsufinPlayerCaps {
             this.Veils = nbt.getCompound("Veils");
             this.SixEyesMultiplier = nbt.getDouble("SixEyesMultiplier");
             this.SukunaMultiplier = nbt.getDouble("SukunaMultiplier");
+            this.RozetsuCopies = (nbt.get("RozetsuCopies") instanceof ListTag lt ? lt : new ListTag());
         }
     }
 
@@ -216,6 +220,7 @@ public class JujutsufinPlayerCaps {
             clone.Veils = original.Veils;
             clone.SixEyesMultiplier = original.SixEyesMultiplier;
             clone.SukunaMultiplier = original.SukunaMultiplier;
+            clone.RozetsuCopies = original.RozetsuCopies;
         }
     }
 }

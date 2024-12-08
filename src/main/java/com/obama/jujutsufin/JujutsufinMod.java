@@ -8,6 +8,7 @@ import com.obama.jujutsufin.client.particle.HWBParticle;
 import com.obama.jujutsufin.client.particle.SFAParticle;
 import com.obama.jujutsufin.client.render.VeilRender;
 import com.obama.jujutsufin.init.*;
+import net.mcreator.jujutsucraft.client.renderer.RozetsuShikigamiRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -71,6 +72,7 @@ public class JujutsufinMod
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(JujutsufinEntities.Veil.get(), VeilRender::new);
+            event.registerEntityRenderer(JujutsufinEntities.Shikigami.get(), RozetsuShikigamiRenderer::new);
         }
         @SubscribeEvent
         public static void registerKeybinds(RegisterKeyMappingsEvent event) {

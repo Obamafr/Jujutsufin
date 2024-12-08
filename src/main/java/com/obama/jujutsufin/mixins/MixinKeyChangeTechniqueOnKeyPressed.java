@@ -5,6 +5,7 @@ import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.itadori.Itadori;
 import com.obama.jujutsufin.techniques.kaori.Kaori;
 import com.obama.jujutsufin.techniques.kashimo.Kashimo;
+import com.obama.jujutsufin.techniques.rozetsu.Rozetsu;
 import com.obama.jujutsufin.techniques.utahime.Utahime;
 import net.mcreator.jujutsucraft.init.JujutsucraftModItems;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(KeyChangeTechniqueOnKeyPressedProcedure.class)
+@Mixin(value = KeyChangeTechniqueOnKeyPressedProcedure.class, priority = 999)
 public class MixinKeyChangeTechniqueOnKeyPressed {
     @Inject(method = "execute", at = @At("HEAD"), cancellable = true, remap = false)
     private static void onExecute(LevelAccessor world, double x, double y, double z, Entity entity, CallbackInfo ci) {
@@ -47,23 +48,12 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     });
                 }
                 switch (Technique) {
-                    case 100: {
-                        found = Utahime.execute(player, selected);
-                        break;
-                    }
-                    case 102: {
-                        found = Kaori.execute(player, selected);
-                        break;
-                    }
-                    case 21: {
-                        found = Itadori.execute(player, selected);
-                        break;
-                    }
-                    case 7: {
-                        found = Kashimo.execute(player, selected);
-                        break;
-                    }
-                    default: {
+                    case 100 -> found = Utahime.execute(player, selected);
+                    case 101 -> found = Rozetsu.execute(player, selected);
+                    case 102 -> found = Kaori.execute(player, selected);
+                    case 21 -> found = Itadori.execute(player, selected);
+                    case 7 -> found = Kashimo.execute(player, selected);
+                    default -> {
                         return;
                     }
                 }
@@ -108,19 +98,5 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                 ci.cancel();
             }
         }
-    }
-
-    @ModifyConstant(method = "execute", constant = @Constant(doubleValue = 0.1), remap = false)
-    private static double setSixEyes(double constant, LevelAccessor world, double x, double y, double z, Entity entity){
-        double playerMultiplier = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).SixEyesMultiplier;
-        double gameRuleMultiplier = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.SixEyesMultiplier);
-        return (playerMultiplier != 1 ? playerMultiplier/10 : gameRuleMultiplier/10);
-    }
-
-    @ModifyConstant(method = "execute", constant = @Constant(doubleValue = 0.5), remap = false)
-    private static double setSukuna(double constant, LevelAccessor world, double x, double y, double z, Entity entity){
-        double playerMultiplier = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).SukunaMultiplier;
-        double gameRuleMultiplier = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.SukunaMultiplier);
-        return (playerMultiplier != 5 ? playerMultiplier/10 : gameRuleMultiplier/10);
     }
 }

@@ -26,7 +26,9 @@
     "MixinStartTechnique",
     "MixinGTAuthTechnique",
     "MixinGTTechnique1",
-    "MixinGTTechnique2"
+    "MixinGTTechnique2",
+    "MixinKeyChangeConstMod",
+    "MixinAIRozetsuShikigami"
   ],
   "client": [],
   "server": []

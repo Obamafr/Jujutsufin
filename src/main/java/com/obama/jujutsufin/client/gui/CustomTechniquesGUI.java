@@ -61,6 +61,10 @@ public class CustomTechniquesGUI extends AbstractContainerScreen<CustomTechnique
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(2));
             ServerCustomTechniquesPacket.keyPress(player, 2);
         }).bounds(this.leftPos + 5,this.topPos + 80 , 100, 20).build());
+        this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.rozetsu"), button -> {
+            JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(5));
+            ServerCustomTechniquesPacket.keyPress(player, 5);
+        }).bounds(this.leftPos + 5,this.topPos + 110 , 100, 20).build());
         this.addRenderableWidget(new Button.Builder(Component.translatable("jujutsufin.gui.jujutsucraft"), button -> {
             JujutsufinMod.PACKETHANDLER.sendToServer(new ServerCustomTechniquesPacket(3));
             ServerCustomTechniquesPacket.keyPress(player, 3);

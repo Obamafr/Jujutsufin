@@ -5,6 +5,7 @@ import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.init.JujutsufinEffects;
 import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
+import com.obama.jujutsufin.techniques.rozetsu.RozetsuUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
 import net.mcreator.jujutsucraft.entity.BlackHoleEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
@@ -35,12 +36,20 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = JujutsufinMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonForgeEventBus {
     @SubscribeEvent
-    public static void PlayerDies(LivingDeathEvent event) {
+    public static void entityDies(LivingDeathEvent event) {
         LivingEntity entity = event.getEntity();
         if (!entity.level().getLevelData().getGameRules().getBoolean(JujutsufinGameRules.KenjakuKeepTechniques)) {
             entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                 cap.KenjakuCopies = new ListTag();
             });
+        }
+        Entity source = event.getSource().getEntity();
+        if (source instanceof Player sourcePlayer && sourcePlayer.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique == 101) {
+            if (entity instanceof Player targetPlayer) {
+                RozetsuUtils.playerKillPlayer(sourcePlayer, targetPlayer);
+            } else {
+                RozetsuUtils.playerKillEntity(sourcePlayer, entity);
+            }
         }
     }
     @SubscribeEvent

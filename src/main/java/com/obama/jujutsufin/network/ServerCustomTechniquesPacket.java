@@ -6,6 +6,7 @@ import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.ChangeCursedTechniqueRightClickedInAirProcedure;
 import net.mcreator.jujutsucraft.procedures.SelectedProcedure;
 import net.mcreator.jujutsucraft.world.inventory.SelectTechniqueMenu;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -46,6 +47,7 @@ public class ServerCustomTechniquesPacket {
                 case 0: {
                     player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                         cap.CustomCT = 1;
+                        cap.KenjakuCopies.set(0, IntTag.valueOf(102));
                         cap.syncPlayerCaps(player);
                     });
                     setTechnique(player, 102, 250);
@@ -53,6 +55,10 @@ public class ServerCustomTechniquesPacket {
                 }
                 case 1: {
                     setTechnique(player, 100, 200);
+                    break;
+                }
+                case 5: {
+                    setTechnique(player, 101, 200);
                     break;
                 }
                 case 2: {

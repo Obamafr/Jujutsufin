@@ -15,7 +15,8 @@ import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CustomNames;
 
 public class KenjakuUtils {
     public static void rightClickPlayer(Player player, Player target) {
-        if (addTechnique(player, (int) target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique)) {
+        double playerCurseTechnique = target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique;
+        if (playerCurseTechnique != -1 && playerCurseTechnique != 21 && addTechnique(player, (int) playerCurseTechnique)) {
             target.kill();
         }
     }
