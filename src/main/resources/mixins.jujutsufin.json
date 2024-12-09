@@ -28,7 +28,10 @@
     "MixinGTTechnique1",
     "MixinGTTechnique2",
     "MixinKeyChangeConstMod",
-    "MixinAIRozetsuShikigami"
+    "MixinAIRozetsuShikigami",
+    "MixinSelectedProcedure",
+    "MixinCheckboxes",
+    "MixinRightClickCTBook"
   ],
   "client": [],
   "server": []

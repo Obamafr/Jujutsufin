@@ -1,8 +1,9 @@
 package com.obama.jujutsufin.techniques.rozetsu;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multiset;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.entity.Shikigami;
-import com.obama.jujutsufin.entity.VeilEntity;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProcedure;
@@ -13,12 +14,16 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.*;
 
 import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CTNames;
 import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CustomNames;
@@ -42,6 +47,9 @@ public class RozetsuUtils {
 
     public static String getTechName(Player player, int index) {
         int Tech = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS).orElse(new JujutsufinPlayerCaps.PlayerCaps()).RozetsuCopies.getInt(index);
+        if (Tech == 0) {
+            return "Blank Shikigami";
+        }
         if (Tech >= 100 && Tech - 100 < CustomNames.length) {
             Tech -= 100;
             return CustomNames[Tech] + " Shikigami";
@@ -80,6 +88,13 @@ public class RozetsuUtils {
         for (Shikigami shikigami : list) {
             if (shikigami.getPersistentData().getString("OWNER_UUID").isEmpty()) {
                 SetRangedAmmoProcedure.execute(player, shikigami);
+                AttributeInstance instance = shikigami.getAttributes().getInstance(Attributes.MAX_HEALTH);
+                if (instance == null) return false;
+                instance.addPermanentModifier(new AttributeModifier(UUID.randomUUID(), "PlayerHealth", player.getMaxHealth() / 10, AttributeModifier.Operation.MULTIPLY_BASE));
+                shikigami.setHealth(shikigami.getMaxHealth());
+                instance = shikigami.getAttributes().getInstance(Attributes.ARMOR);
+                if (instance == null) return false;
+                instance.addPermanentModifier(new AttributeModifier(UUID.randomUUID(), "PlayerArmor", player.getArmorValue() - 8, AttributeModifier.Operation.ADDITION));
                 shikigami.getPersistentData().putInt("rozTechnique", RozetsuCopies.getInt(player.getPersistentData().getInt("rozIndex")));
             }
         }

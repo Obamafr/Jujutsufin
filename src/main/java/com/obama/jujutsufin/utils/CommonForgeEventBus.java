@@ -2,6 +2,7 @@ package com.obama.jujutsufin.utils;
 
 import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
+import com.obama.jujutsufin.entity.Shikigami;
 import com.obama.jujutsufin.init.JujutsufinEffects;
 import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
@@ -25,6 +26,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -82,6 +84,11 @@ public class CommonForgeEventBus {
         LivingEntity target = event.getEntity();
         DamageSource damageSource = event.getSource();
         Entity source = damageSource.getEntity();
+        if (target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique == 101) {
+            for (Shikigami shikigami : target.level().getEntitiesOfClass(Shikigami.class, new AABB(target.blockPosition()).inflate(32))){
+                if (source instanceof LivingEntity livingSource) shikigami.setTarget(livingSource);
+            }
+        }
         if (target.hasEffect(MobEffects.LEVITATION) && source instanceof BlackHoleEntity && event.isCancelable()) {
             event.setCanceled(true);
         }

@@ -93,7 +93,7 @@ dependencies {
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly fg.deobf("curse.maven:jjkm-1014693:5747690")
-    implementation fg.deobf("curse.maven:jjsk-1128285:5950367")
+    compileOnly fg.deobf("curse.maven:jjsk-1128285:5950367")
     compileOnly fg.deobf("curse.maven:jujutsu-kaisen-gt-925091:5833239")
     compileOnly fg.deobf("curse.maven:jjkf-921955:5722931")
     runtimeOnly fg.deobf("curse.maven:torohealth-unofficial-931345:4831219")

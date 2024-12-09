@@ -1,6 +1,7 @@
 package com.obama.jujutsufin.network;
 
 import com.obama.jujutsufin.JujutsufinMod;
+import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
@@ -41,17 +42,18 @@ public class ServerFromMixinPacket {
 
     public static void keyPress(Player player, int type) {
         if (player == null) return;
+
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition()) && player instanceof ServerPlayer serverPlayer) {
-            // switch for potential later cases
             switch (type) {
-                case 0: {
-                    NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-                            (id, inventory, mPlayer) -> getMenuFromType(3, id, inventory, mPlayer),
-                            getNameFromType(3)
-                    ));
-                    break;
-                }
+                case 2 -> NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
+                        (id, inventory, mPlayer) -> getMenuFromType(3, id, inventory, mPlayer),
+                        getNameFromType(3)
+                ));
+                case -2,-1,0,1 -> player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY,null).ifPresent(cap -> {
+                    cap.PlayerProfession = type;
+                    cap.syncPlayerVariables(player);
+                });
             }
         }
     }

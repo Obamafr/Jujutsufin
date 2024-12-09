@@ -12,9 +12,8 @@ public class Rozetsu extends Technique {
         switch (selected) {
             case 5: {
                 ListTag RozetsuCopies = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).RozetsuCopies;
-                if (!RozetsuCopies.isEmpty()) {
-                    found = setInfo(player, selected, Component.literal(RozetsuUtils.getTechName(player, 0)).getString(), 500, false, false);
-                }
+                if (RozetsuCopies.isEmpty()) RozetsuUtils.addTechnique(player, 0);
+                found = setInfo(player, selected, Component.literal(RozetsuUtils.getTechName(player, 0)).getString(), 500, false, false);
                 player.getPersistentData().putInt("rozIndex", 0);
                 break;
             }
