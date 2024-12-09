@@ -47,7 +47,7 @@ public class ServerCustomTechniquesPacket {
                 case 0: {
                     player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
                         cap.CustomCT = 1;
-                        cap.KenjakuCopies.set(0, IntTag.valueOf(102));
+                        cap.KenjakuCopies.add(0, IntTag.valueOf(102));
                         cap.syncPlayerCaps(player);
                     });
                     setTechnique(player, 102, 250);
