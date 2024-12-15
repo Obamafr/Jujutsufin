@@ -5,6 +5,7 @@ import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.itadori.Itadori;
 import com.obama.jujutsufin.techniques.kaori.Kaori;
 import com.obama.jujutsufin.techniques.kashimo.Kashimo;
+import com.obama.jujutsufin.techniques.mechamaru.Mechamaru;
 import com.obama.jujutsufin.techniques.rozetsu.Rozetsu;
 import com.obama.jujutsufin.techniques.utahime.Utahime;
 import net.mcreator.jujutsucraft.init.JujutsucraftModItems;
@@ -51,6 +52,7 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     case 100 -> found = Utahime.execute(player, selected);
                     case 101 -> found = Rozetsu.execute(player, selected);
                     case 102 -> found = Kaori.execute(player, selected);
+                    case 103 -> found = Mechamaru.execute(player, selected);
                     case 21 -> found = Itadori.execute(player, selected);
                     case 7 -> found = Kashimo.execute(player, selected);
                     default -> {

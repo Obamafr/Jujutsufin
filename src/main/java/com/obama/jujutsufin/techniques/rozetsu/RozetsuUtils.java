@@ -1,9 +1,8 @@
 package com.obama.jujutsufin.techniques.rozetsu;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multiset;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.entity.Shikigami;
+import com.obama.jujutsufin.techniques.Skill;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProcedure;
@@ -14,21 +13,19 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CTNames;
 import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CustomNames;
 
-public class RozetsuUtils {
+public class RozetsuUtils extends Skill {
     public static void playerKillPlayer(Player player, Player target) {
         double playerCurseTechnique = target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique;
         if (playerCurseTechnique != -1) addTechnique(player, (int) playerCurseTechnique);

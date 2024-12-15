@@ -30,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -85,12 +86,18 @@ public class CommonForgeEventBus {
         DamageSource damageSource = event.getSource();
         Entity source = damageSource.getEntity();
         if (target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique == 101) {
-            for (Shikigami shikigami : target.level().getEntitiesOfClass(Shikigami.class, new AABB(target.blockPosition()).inflate(32))){
-                if (source instanceof LivingEntity livingSource) shikigami.setTarget(livingSource);
+            for (Shikigami shikigami : target.level().getEntitiesOfClass(Shikigami.class, new AABB(target.blockPosition()).inflate(32), p -> p.getPersistentData().getString("OWNER_UUID").equals(target.getStringUUID()))){
+                if (source instanceof LivingEntity livingSource) {
+                    shikigami.setTarget(livingSource);
+                    JujutsufinMod.LOGGER.info("shikigami target set to {}", livingSource.getName().getString());
+                }
             }
         }
         if (target.hasEffect(MobEffects.LEVITATION) && source instanceof BlackHoleEntity && event.isCancelable()) {
             event.setCanceled(true);
+        }
+        if (target.getPersistentData().getBoolean("ultraShield")) {
+            event.setAmount(event.getAmount() * 0.8F);
         }
         if (target.hasEffect(JujutsufinEffects.GRAVITY.get())) {
             event.setAmount(event.getAmount()/1.5F);

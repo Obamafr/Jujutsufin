@@ -21,7 +21,9 @@ public class Shikigami extends RozetsuShikigamiEntity {
         if (!ownerUuid.isEmpty()) {
             Player player = this.level().getPlayerByUUID(UUID.fromString(ownerUuid));
             if (player != null) {
-                if (this.level().getEntitiesOfClass(Player.class, new AABB(blockPosition()).inflate(32), player1 -> player1 == player).isEmpty()) {
+                if (!player.isAlive()) {
+                    this.discard();
+                } else if (this.level().getEntitiesOfClass(Player.class, new AABB(blockPosition()).inflate(32), player1 -> player1 == player).isEmpty()) {
                     this.teleportTo(player.getX() + Math.random(), player.getY(), player.getZ() + Math.random());
                 }
             }

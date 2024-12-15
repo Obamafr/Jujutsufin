@@ -2,6 +2,7 @@ package com.obama.jujutsufin.mixins;
 
 import com.obama.jujutsufin.techniques.itadori.ItadoriUtils;
 import com.obama.jujutsufin.techniques.kaori.KaoriUtils;
+import com.obama.jujutsufin.techniques.mechamaru.MechamaruUtils;
 import com.obama.jujutsufin.techniques.rozetsu.RozetsuUtils;
 import com.obama.jujutsufin.techniques.utahime.UtahimeUtils;
 import com.obama.jujutsufin.techniques.veils.VeilsUtils;
@@ -32,6 +33,8 @@ public class MixinCurseTechniqueEffectTick {
                 found = RozetsuUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 10200 && skill < 10300) {
                 found = KaoriUtils.execute(serverLevel, x, y, z, livingEntity, skill);
+            } else if (skill >= 10300 && skill < 10400) {
+                found = MechamaruUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill >= 2100 && skill < 2200) {
                 found = ItadoriUtils.execute(serverLevel, x, y, z, livingEntity, skill);
             } else if (skill == 720) {

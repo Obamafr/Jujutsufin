@@ -11,4 +11,6 @@ public class JujutsufinParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, JujutsufinMod.MODID);
     public static final RegistryObject<SimpleParticleType> HWBPARTICLE = PARTICLES.register("hwbparticle", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> SFAPARTICLE = PARTICLES.register("sfaparticle", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> EXHAUST = PARTICLES.register("exhaust", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> EMPTY = PARTICLES.register("empty", () -> new SimpleParticleType(true));
 }

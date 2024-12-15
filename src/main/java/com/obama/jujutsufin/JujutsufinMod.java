@@ -4,8 +4,12 @@ import com.mojang.logging.LogUtils;
 import com.obama.jujutsufin.client.gui.CustomTechniquesGUI;
 import com.obama.jujutsufin.client.gui.KenjakuCopiesGUI;
 import com.obama.jujutsufin.client.gui.VeilSettingsGUI;
+import com.obama.jujutsufin.client.particle.EmptyParticle;
+import com.obama.jujutsufin.client.particle.ExhaustParticle;
 import com.obama.jujutsufin.client.particle.HWBParticle;
 import com.obama.jujutsufin.client.particle.SFAParticle;
+import com.obama.jujutsufin.client.render.BeamRender;
+import com.obama.jujutsufin.client.render.PigeonViolaRender;
 import com.obama.jujutsufin.client.render.VeilRender;
 import com.obama.jujutsufin.init.*;
 import net.mcreator.jujutsucraft.client.renderer.RozetsuShikigamiRenderer;
@@ -72,7 +76,9 @@ public class JujutsufinMod
         @SubscribeEvent
         public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(JujutsufinEntities.Veil.get(), VeilRender::new);
+            event.registerEntityRenderer(JujutsufinEntities.Beam.get(), BeamRender::new);
             event.registerEntityRenderer(JujutsufinEntities.Shikigami.get(), RozetsuShikigamiRenderer::new);
+            event.registerEntityRenderer(JujutsufinEntities.Viola.get(), PigeonViolaRender::new);
         }
         @SubscribeEvent
         public static void registerKeybinds(RegisterKeyMappingsEvent event) {
@@ -90,6 +96,8 @@ public class JujutsufinMod
         public static void registerParticles(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(JujutsufinParticles.HWBPARTICLE.get(), HWBParticle::provider);
             event.registerSpriteSet(JujutsufinParticles.SFAPARTICLE.get(), SFAParticle::provider);
+            event.registerSpriteSet(JujutsufinParticles.EXHAUST.get(), ExhaustParticle::provider);
+            event.registerSpriteSet(JujutsufinParticles.EMPTY.get(), EmptyParticle::provider);
         }
         @SubscribeEvent
         public static void clientSetup(FMLClientSetupEvent event) {

@@ -47,7 +47,7 @@ public class AIMaster {
             case 38 -> AITakakoUroProcedure.execute(world, x, y, z, entity);
             case 39 -> AIYorozuProcedure.execute(world, x, y, z, entity);
             case 40 -> AIInoTakumaProcedure.execute(world, x, y, z, entity);
-            default -> AIAttackProcedure.execute(world, x, y, z, entity);
+            default -> AIActiveProcedure.execute(world, x, y, z, entity);
         }
     }
 }

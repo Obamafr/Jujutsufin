@@ -65,6 +65,10 @@ public class ServerCustomTechniquesPacket {
                     setTechnique(player, 102, 200);
                     break;
                 }
+                case 6: {
+                    setTechnique(player, 103, 500);
+                    break;
+                }
                 case 3: {
                     ChangeCursedTechniqueRightClickedInAirProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
                     break;
