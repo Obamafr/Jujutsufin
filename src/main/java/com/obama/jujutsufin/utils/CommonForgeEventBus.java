@@ -89,6 +89,7 @@ public class CommonForgeEventBus {
             for (Shikigami shikigami : target.level().getEntitiesOfClass(Shikigami.class, new AABB(target.blockPosition()).inflate(32), p -> p.getPersistentData().getString("OWNER_UUID").equals(target.getStringUUID()))){
                 if (source instanceof LivingEntity livingSource) {
                     shikigami.setTarget(livingSource);
+                    shikigami.getPersistentData().putString("", livingSource.getStringUUID());
                     JujutsufinMod.LOGGER.info("shikigami target set to {}", livingSource.getName().getString());
                 }
             }
@@ -126,6 +127,9 @@ public class CommonForgeEventBus {
         JujutsufinPlayerCaps.PlayerCaps playerCaps = player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps());
         if (event.getHand() == player.getUsedItemHand()) {
             if (player.isShiftKeyDown()) {
+                if (playerVariables.PlayerCurseTechnique2 == 101 && target instanceof Shikigami shikigami) {
+                   RozetsuUtils.pickUpShikigami(player, shikigami);
+                }
                 if (playerVariables.PlayerCurseTechnique2 == 100) {
                     UtahimeUtils.utahimeRightClick(player, target);
                 }

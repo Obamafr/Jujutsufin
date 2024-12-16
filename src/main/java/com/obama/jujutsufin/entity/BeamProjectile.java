@@ -71,9 +71,9 @@ public class BeamProjectile extends AbstractHurtingProjectile {
 
     private static final Map<Long, Double> damageValues = Map.of(
             1L, 3d,
-            2L, 6d,
-            4L, 9d,
-            8L, 12d
+            2L, 3d,
+            4L, 5d,
+            8L, 8d
     );
     private static final Map<Long, Double> rangeValues = Map.of(
             1L, 4d,
@@ -94,7 +94,7 @@ public class BeamProjectile extends AbstractHurtingProjectile {
         int cntA = this.getPersistentData().getInt("cntA");
         cntA++;
         this.getPersistentData().putInt("cntA", cntA);
-        double CNT6 = 1 + this.getPersistentData().getDouble("cnt6");
+        double CNT6 = Math.max(this.getPersistentData().getDouble("cnt6"), 1);
         this.getPersistentData().putDouble("Damage", damageValues.getOrDefault(Math.round(getBoundingBox().getSize()), 3d) * CNT6);
         this.getPersistentData().putDouble("Range", rangeValues.getOrDefault(Math.round(getBoundingBox().getSize()), 4d));
         this.getPersistentData().putDouble("knockback", 2);

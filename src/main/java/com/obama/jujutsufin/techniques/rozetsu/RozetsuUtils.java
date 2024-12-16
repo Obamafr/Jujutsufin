@@ -1,5 +1,6 @@
 package com.obama.jujutsufin.techniques.rozetsu;
 
+import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.entity.Shikigami;
 import com.obama.jujutsufin.techniques.Skill;
@@ -10,14 +11,18 @@ import net.mcreator.jujutsucraft.procedures.OtherDomainExpansionProcedure;
 import net.mcreator.jujutsucraft.procedures.SetRangedAmmoProcedure;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
@@ -26,6 +31,24 @@ import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CTNames;
 import static com.obama.jujutsufin.techniques.veils.VeilsUtils.CustomNames;
 
 public class RozetsuUtils extends Skill {
+
+    public static void pickUpShikigami(Player player, Shikigami shikigami) {
+        if (shikigami.getPersistentData().getString("OWNER_UUID").equals(player.getStringUUID())) {
+            LazyOptional<JujutsucraftModVariables.PlayerVariables> capability = player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY);
+            float difference = shikigami.getMaxHealth() - shikigami.getHealth();
+            if (difference * 2.5 <= capability.orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCursePower) {
+                capability.ifPresent(cap -> {
+                    cap.PlayerCursePowerChange -= difference * 2.5;
+                    cap.syncPlayerVariables(player);
+                });
+                addTechnique(player, shikigami.getPersistentData().getInt("rozTechnique"));
+                shikigami.discard();
+            } else {
+                player.displayClientMessage(Component.literal("Not Enough Energy"), true);
+            }
+        }
+    }
+
     public static void playerKillPlayer(Player player, Player target) {
         double playerCurseTechnique = target.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).orElse(new JujutsucraftModVariables.PlayerVariables()).PlayerCurseTechnique;
         if (playerCurseTechnique != -1) addTechnique(player, (int) playerCurseTechnique);
@@ -84,7 +107,15 @@ public class RozetsuUtils extends Skill {
         if (list.isEmpty()) return false;
         for (Shikigami shikigami : list) {
             if (shikigami.getPersistentData().getString("OWNER_UUID").isEmpty()) {
-                SetRangedAmmoProcedure.execute(player, shikigami);
+                MobEffectInstance strength = player.getEffect(MobEffects.DAMAGE_BOOST);
+                if (strength != null) {
+                    shikigami.addEffect(strength);
+                }
+                shikigami.getPersistentData().putString("OWNER_UUID", player.getStringUUID());
+                shikigami.getPersistentData().putBoolean("JujutsuSorcerer", player.getPersistentData().getBoolean("JujutsuSorcerer"));
+                shikigami.getPersistentData().putBoolean("CurseUser", player.getPersistentData().getBoolean("CurseUser"));
+                shikigami.getPersistentData().putBoolean("CursedSpirit", player.getPersistentData().getBoolean("CursedSpirit"));
+                shikigami.getPersistentData().putDouble("friend_num", player.getPersistentData().getDouble("friend_num"));
                 AttributeInstance instance = shikigami.getAttributes().getInstance(Attributes.MAX_HEALTH);
                 if (instance == null) return false;
                 instance.addPermanentModifier(new AttributeModifier(UUID.randomUUID(), "PlayerHealth", player.getMaxHealth() / 10, AttributeModifier.Operation.MULTIPLY_BASE));

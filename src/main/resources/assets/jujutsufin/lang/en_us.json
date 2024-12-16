@@ -61,5 +61,8 @@
   "jujutsufin.mechamaru.22" : "Ultra Cannon",
   "jujutsufin.mechamaru.23" : "Miracle Cannon",
   "jujutsufin.mechamaru.24" : "Pigeon Viola",
-  "effect.jujutsufin.absolute": "Mode: Absolute"
+  "effect.jujutsufin.absolute": "Mode: Absolute",
+  "jujutsufin.gui.mechamaru": "Mechamaru",
+  "entity.jujutsufin.viola": "Pigeon Viola",
+  "entity.jujutsufin.beam": "Cannon"
 }

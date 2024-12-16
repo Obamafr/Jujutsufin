@@ -107,7 +107,7 @@ public class PigeonViola extends Mob {
     }
 
     public void explode() {
-        float damage = 5;
+        float damage = 8;
         MobEffectInstance strength = this.getEffect(MobEffects.DAMAGE_BOOST);
         if (strength != null) {
             damage *= strength.getAmplifier();
