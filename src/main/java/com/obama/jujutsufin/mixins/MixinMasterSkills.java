@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MasterSkillsProcedure.class)
 public class MixinMasterSkills {
-    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;", ordinal = 1), cancellable = true, remap = false)
+    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;", ordinal = 1), cancellable = true)
     private static void grantBurnout(LevelAccessor world, double x, double y, double z, Entity entity, ItemStack itemstack, CallbackInfo ci) {
         if (entity instanceof ServerPlayer serverPlayer) {
             Advancement rct2 = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:reverse_cursed_technique_2"));
@@ -33,7 +33,7 @@ public class MixinMasterSkills {
         }
     }
 
-    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;", ordinal = 5), cancellable = true, remap = false)
+    @Inject(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;", ordinal = 5), cancellable = true)
     private static void grantVeil(LevelAccessor world, double x, double y, double z, Entity entity, ItemStack itemstack, CallbackInfo ci) {
         if (entity instanceof ServerPlayer serverPlayer) {
             Advancement sd = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:mastery_simple_domain"));

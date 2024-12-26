@@ -20,7 +20,7 @@ public abstract class MixinMythicalBeastAmber extends MobEffect {
         super(MobEffectCategory.NEUTRAL, -65281);
     }
 
-    @Inject(method = "removeAttributeModifiers", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "removeAttributeModifiers", at = @At("HEAD"), cancellable = true)
     public void onRemoveAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int i, CallbackInfo ci) {
         if (livingEntity.level().getLevelData().getGameRules().getBoolean(JujutsufinGameRules.MBANoDeath)) {
             super.removeAttributeModifiers(livingEntity, attributeMap, i);

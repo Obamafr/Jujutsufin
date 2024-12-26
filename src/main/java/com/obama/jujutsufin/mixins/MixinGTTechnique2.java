@@ -17,7 +17,7 @@ public class MixinGTTechnique2 extends MobEffect {
         super(MobEffectCategory.BENEFICIAL, -6684673);
     }
 
-    @Inject(method = "applyEffectTick", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "applyEffectTick", at = @At("HEAD"), cancellable = true)
     private void onApplyEffectTick(LivingEntity entity, int amplifier, CallbackInfo ci) {
         if (entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).CustomCT == 1) {
             ci.cancel();
