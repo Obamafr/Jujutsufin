@@ -1,6 +1,5 @@
 package com.obama.jujutsufin.techniques.rozetsu;
 
-import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.entity.Shikigami;
 import com.obama.jujutsufin.techniques.Skill;
@@ -8,7 +7,6 @@ import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.OtherDomainExpansionProcedure;
-import net.mcreator.jujutsucraft.procedures.SetRangedAmmoProcedure;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;

@@ -32,6 +32,9 @@
     "MixinSelectedProcedure",
     "MixinRightClickCTBook"
   ],
-  "client": ["MixinCheckboxes"],
+  "client": [
+    "MixinCheckboxes",
+    "MixinOverlayDefault"
+  ],
   "server": []
 }

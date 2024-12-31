@@ -10,15 +10,23 @@ public class ClientConfig
 {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue DOMAIN_HOTKEY_HOLD = BUILDER
+    public static final ForgeConfigSpec.BooleanValue DOMAIN_HOTKEY_HOLD = BUILDER
             .comment("Whether to hold or press Domain Hotkey")
             .define("holdDomainHotkey", true);
 
-    private static final ForgeConfigSpec.BooleanValue PASSIVE_HOTKEY_HOLD = BUILDER
+    public static final ForgeConfigSpec.BooleanValue PASSIVE_HOTKEY_HOLD = BUILDER
             .comment("Whether to hold or press Passive Hotkey")
             .define("holdPassiveHotkey", true);
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    public static final ForgeConfigSpec.ConfigValue<Integer> OVERLAY_WIDTH = BUILDER
+            .comment("Width modifier for JujutsuCraft overlay")
+            .define("overlayWidth", 0);
+
+    public static final ForgeConfigSpec.ConfigValue<Integer> OVERLAY_HEIGHT = BUILDER
+            .comment("Height modifier for JujutsuCraft overlay")
+            .define("overlayHeight", 0);
+
+    public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean DomainHotkeyHold;
     public static boolean PassiveHotkeyHold;

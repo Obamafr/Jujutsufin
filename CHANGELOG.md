@@ -1,4 +1,4 @@
-# JujutsuFIN V10.2
+# JujutsuFIN V10.4
 
 ### Mechamaru
 
@@ -10,3 +10,4 @@
 ### General
 
 * Made the checkboxes work server side. (for multiplayer)
+* Made a command "**/jjkfin_overlay**" to move the JujutsuCraft GUI around.
