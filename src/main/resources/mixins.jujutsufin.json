@@ -8,9 +8,6 @@
   "mixins": [
     "MixinKeyChangeTechniqueOnKeyPressed",
     "MixinCurseTechniqueEffectTick",
-    "MixinConvergence",
-    "MixinBloodBall",
-    "MixinDPBEffectTick",
     "MixinRangeAttackProcedure",
     "MixinReverseCurseTechnique",
     "MixinPlayerTickEvent",
@@ -33,8 +30,7 @@
     "MixinRightClickCTBook"
   ],
   "client": [
-    "MixinCheckboxes",
-    "MixinOverlayDefault"
+    "MixinCheckboxes"
   ],
   "server": []
 }

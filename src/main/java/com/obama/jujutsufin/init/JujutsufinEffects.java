@@ -15,4 +15,5 @@ public class JujutsufinEffects {
     public static final RegistryObject<MobEffect> BURNOUT = EFFECTS.register("burnout", BurnoutEffect::new);
     public static final RegistryObject<MobEffect> GRAVITY = EFFECTS.register("gravity", GravityEffect::new);
     public static final RegistryObject<MobEffect> ABSOLUTE = EFFECTS.register("absolute", ModeAbsolute::new);
+    public static final RegistryObject<MobEffect> JACKPOT = EFFECTS.register("jackpot", JackpotEffect::new);
 }

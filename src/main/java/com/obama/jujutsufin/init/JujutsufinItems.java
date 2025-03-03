@@ -23,19 +23,6 @@ public class JujutsufinItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, JujutsufinMod.MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, JujutsufinMod.MODID);
 
-    public static final RegistryObject<Item> CursedWomb = ITEMS.register("cursedwomb", () -> new Item(new Item.Properties().stacksTo(9).rarity(Rarity.EPIC).food(new FoodProperties.Builder().alwaysEat().build())){
-        @Override
-        public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-            livingEntity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
-                if (cap.EatenWombs < 9) {
-                    cap.EatenWombs++;
-                    cap.syncPlayerCaps(livingEntity);
-                }
-            });
-            return super.finishUsingItem(itemStack, level, livingEntity);
-        }
-    });
-
     public static final  RegistryObject<Item> CustomTechniqueChanger = ITEMS.register("customtechniquechanger", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)) {
         @Override
         public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -62,7 +49,6 @@ public class JujutsufinItems {
                     .icon(CustomTechniqueChanger.get()::getDefaultInstance)
                     .displayItems((displayParameters, output) -> {
                         output.accept(CustomTechniqueChanger.get());
-                        output.accept(CursedWomb.get());
                     })
                     .build()
     );

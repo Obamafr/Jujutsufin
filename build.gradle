@@ -87,16 +87,18 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    implementation fg.deobf("curse.maven:sorceryfight-471288:5826594")
+    implementation fg.deobf("curse.maven:sorceryfight-471288:6242473")
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    compileOnly fg.deobf("curse.maven:jjkm-1014693:5747690")
+    compileOnly fg.deobf("curse.maven:jjku-1014693:6157175")
     compileOnly fg.deobf("curse.maven:jjsk-1128285:5965169")
     compileOnly fg.deobf("curse.maven:jujutsu-kaisen-gt-925091:5995392")
     compileOnly fg.deobf("curse.maven:jjkf-921955:5722931")
+    compileOnly fg.deobf("curse.maven:binding-vows-jujutsu-craft-addon-960086:5847968")
     runtimeOnly fg.deobf("curse.maven:torohealth-unofficial-931345:4831219")
+    runtimeOnly fg.deobf("curse.maven:jujutsuedit-1170434:6046307")
 }
 
 mixin {

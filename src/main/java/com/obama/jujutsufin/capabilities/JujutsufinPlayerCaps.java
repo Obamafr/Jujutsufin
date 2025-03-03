@@ -66,7 +66,6 @@ public class JujutsufinPlayerCaps {
                 if (!context.getDirection().getReceptionSide().isServer()) {
                     PlayerCaps variables = Minecraft.getInstance().player.getCapability(PLAYER_CAPS, null).orElse(new PlayerCaps());
                     variables.CustomCT = message.data.CustomCT;
-                    variables.EatenWombs = message.data.EatenWombs;
                     variables.FriendNumber = message.data.FriendNumber;
                     variables.canHWB = message.data.canHWB;
                     variables.PlayerTeam = message.data.PlayerTeam;
@@ -87,7 +86,6 @@ public class JujutsufinPlayerCaps {
 
     public static class PlayerCaps {
         public double CustomCT = 0;
-        public int EatenWombs = 0;
         public double FriendNumber = Math.random();
         public boolean canHWB = true;
         public String PlayerTeam = "";
@@ -113,7 +111,6 @@ public class JujutsufinPlayerCaps {
         public Tag writeNBT() {
             CompoundTag nbt = new CompoundTag();
             nbt.putDouble("CustomCT", this.CustomCT);
-            nbt.putInt("EatenWombs", this.EatenWombs);
             nbt.putDouble("FriendNumber", this.FriendNumber);
             nbt.putBoolean("canHWB", this.canHWB);
             nbt.putString("PlayerTeam", this.PlayerTeam);
@@ -132,7 +129,6 @@ public class JujutsufinPlayerCaps {
         public void readNBT(Tag Tag) {
             CompoundTag nbt = (CompoundTag)Tag;
             this.CustomCT = nbt.getDouble("CustomCT");
-            this.EatenWombs = nbt.getInt("EatenWombs");
             this.FriendNumber = nbt.getDouble("FriendNumber");
             this.canHWB = nbt.getBoolean("canHWB");
             this.PlayerTeam = nbt.getString("PlayerTeam");
@@ -208,7 +204,6 @@ public class JujutsufinPlayerCaps {
             PlayerCaps original = event.getOriginal().getCapability(PLAYER_CAPS, null).orElse(new PlayerCaps());
             PlayerCaps clone = event.getEntity().getCapability(PLAYER_CAPS, null).orElse(new PlayerCaps());
             clone.CustomCT = original.CustomCT;
-            clone.EatenWombs = original.EatenWombs;
             clone.FriendNumber = original.FriendNumber;
             clone.canHWB = original.canHWB;
             clone.PlayerTeam = original.PlayerTeam;

@@ -45,6 +45,7 @@ public class KenjakuUtils {
         if (index <= -1) index = KenjakuCopies.size() - 1;
         int value = index;
         player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent((cap) -> {
+            cap.PlayerCurseTechnique = (KenjakuCopies.get(value) instanceof IntTag it ? it.getAsDouble() : cap.PlayerCurseTechnique);
             cap.PlayerCurseTechnique2 = (KenjakuCopies.get(value) instanceof IntTag it ? it.getAsDouble() : cap.PlayerCurseTechnique2);
             cap.syncPlayerVariables(player);
         });
@@ -61,6 +62,7 @@ public class KenjakuUtils {
         if (index <= -1) index = KenjakuCopies.size() - 1;
         int value = index;
         player.getCapability(JujutsucraftModVariables.PLAYER_VARIABLES_CAPABILITY, null).ifPresent((cap) -> {
+            cap.PlayerCurseTechnique = (KenjakuCopies.get(value) instanceof IntTag it ? it.getAsDouble() : cap.PlayerCurseTechnique);
             cap.PlayerCurseTechnique2 = (KenjakuCopies.get(value) instanceof IntTag it ? it.getAsDouble() : cap.PlayerCurseTechnique2);
             cap.syncPlayerVariables(player);
         });

@@ -2,7 +2,6 @@ package com.obama.jujutsufin.mixins;
 
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.init.JujutsufinGameRules;
-import com.obama.jujutsufin.techniques.itadori.Itadori;
 import com.obama.jujutsufin.techniques.kaori.Kaori;
 import com.obama.jujutsufin.techniques.kashimo.Kashimo;
 import com.obama.jujutsufin.techniques.mechamaru.Mechamaru;
@@ -19,9 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = KeyChangeTechniqueOnKeyPressedProcedure.class, priority = 999)
@@ -53,7 +50,6 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     case 101 -> found = Rozetsu.execute(player, selected);
                     case 102 -> found = Kaori.execute(player, selected);
                     case 103 -> found = Mechamaru.execute(player, selected);
-                    case 21 -> found = Itadori.execute(player, selected);
                     case 7 -> found = Kashimo.execute(player, selected);
                     default -> {
                         return;

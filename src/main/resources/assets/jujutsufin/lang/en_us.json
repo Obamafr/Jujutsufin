@@ -64,5 +64,11 @@
   "effect.jujutsufin.absolute": "Mode: Absolute",
   "jujutsufin.gui.mechamaru": "Mechamaru",
   "entity.jujutsufin.viola": "Pigeon Viola",
-  "entity.jujutsufin.beam": "Cannon"
+  "entity.jujutsufin.beam": "Cannon",
+  "jujutsufin.hakari.5": "Panchinko Ball",
+  "jujutsufin.hakari.6": "Sliding Doors",
+  "jujutsufin.hakari.7": "Pure Love Train",
+  "jujutsufin.hakari.8": "Gambler",
+  "jujutsufin.hakari.20": "Idle Death Gamble",
+  "jujutsufin.keybinds.radialmenu": "Open Radial Menu"
 }
