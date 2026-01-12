@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(ReverseCursedTechniqueOnEffectActiveTickProcedure.class)
+@Mixin(value = ReverseCursedTechniqueOnEffectActiveTickProcedure.class, priority = 1001) // Vazafila fuck you. overwrites are for tards (she's true y'know)
 public class MixinReverseCurseTechnique {
     @ModifyConstant(method = "execute", constant = @Constant(intValue = 20), remap = false)
     private static int changeFatigue(int constant, LevelAccessor world, double x, double y, double z, Entity entity) {
