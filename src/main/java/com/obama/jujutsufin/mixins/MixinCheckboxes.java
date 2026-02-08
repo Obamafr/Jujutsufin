@@ -20,11 +20,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinCheckboxes {
     @Shadow
     public abstract boolean selected();
+
     private Component name;
+
     @Inject(method = "<init>", at = @At("TAIL"))
     public void construction(int i, int i1, int i2, int i3, Component component, boolean b, CallbackInfo ci) {
         name = component;
     }
+
     @Inject(method = "onPress", at = @At("HEAD"))
     public void onOnPress(CallbackInfo ci) {
         boolean curseUser = name.equals(Component.translatable("gui.jujutsucraft.select_technique.curse_user"));

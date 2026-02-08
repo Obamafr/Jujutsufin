@@ -5,6 +5,7 @@ import com.obama.jujutsufin.techniques.Skill;
 import net.mcreator.jujutsucraft.init.JujutsucraftModMobEffects;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.AttackStrongProcedure;
+import net.mcreator.jujutsucraft.procedures.AttackWeakProcedure;
 import net.mcreator.jujutsucraft.procedures.OtherDomainExpansionProcedure;
 import net.mcreator.jujutsucraft.procedures.RangeAttackProcedure;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,17 +15,18 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
 public class KaoriUtils extends Skill {
-    public static boolean execute(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity, int skill) {
+    public static boolean execute(Level level, double x, double y, double z, LivingEntity livingEntity, int skill) {
         boolean found = false;
         skill %= 10200;
         switch (skill) {
             case 5: {
-                found = antiGravity(serverLevel, x, y, z, livingEntity);
+                found = antiGravity(level, x, y, z, livingEntity);
                 break;
             }
             case 6: {
@@ -32,7 +34,7 @@ public class KaoriUtils extends Skill {
                 break;
             }
             case 7: {
-                found = gravity(serverLevel, x, y, z, livingEntity);
+                found = gravity(level, x, y, z, livingEntity);
                 break;
             }
             case 8: {
@@ -41,7 +43,7 @@ public class KaoriUtils extends Skill {
             }
             case 20: {
                 livingEntity.getPersistentData().putDouble("skill_domain", 18);
-                OtherDomainExpansionProcedure.execute(serverLevel, x, y, z, livingEntity);
+                OtherDomainExpansionProcedure.execute(level, x, y, z, livingEntity);
                 found = true;
                 break;
             }
@@ -56,17 +58,18 @@ public class KaoriUtils extends Skill {
         return livingEntity.addEffect(new MobEffectInstance(Gravity, -1, 0, false, false));
     }
 
-    private static boolean antiGravity(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity) {
-        charge(livingEntity, 50, false);
-        serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 10, 4,0,4, 1);
+    private static boolean antiGravity(Level level, double x, double y, double z, LivingEntity livingEntity) {
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 10, 4,0,4, 1);
+        }
         CompoundTag originData = livingEntity.getPersistentData();
         originData.putBoolean("antiGrav", true);
         originData.putInt("cntG", originData.getInt("cntG") + 1);
         double cntG = originData.getInt("cntG");
-        AttackStrongProcedure.execute(serverLevel, x, y, z, livingEntity);
+        AttackWeakProcedure.execute(level, x, y, z, livingEntity);
         if (originData.getBoolean("PRESS_Z")) {
             if (cntG % 20 == 0) {
-                List<LivingEntity> livingEntities = serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(4));
+                List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(4));
                 for (LivingEntity entity : livingEntities) {
                     if (entity != livingEntity) {
                         entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 44, 0));
@@ -96,20 +99,22 @@ public class KaoriUtils extends Skill {
         return livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 100, 0));
     }
 
-    private static boolean gravity(ServerLevel serverLevel, double x, double y, double z, LivingEntity livingEntity) {
-        charge(livingEntity, 100, false);
-        serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, x, y + 1, z, 10, 4,0,4, 1);
+    private static boolean gravity(Level level, double x, double y, double z, LivingEntity livingEntity) {
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, x, y + 1, z, 10, 4,0,4, 1);
+        }
         CompoundTag originData = livingEntity.getPersistentData();
         originData.putInt("cntG", originData.getInt("cntG") + 1);
         int cntG = originData.getInt("cntG");
-        AttackStrongProcedure.execute(serverLevel, x, y, z, livingEntity);
+        originData.putDouble("cnt5", 0);
+        AttackWeakProcedure.execute(level, x, y, z, livingEntity);
         if (originData.getBoolean("PRESS_Z")) {
             if (cntG % 20 == 0) {
                 originData.putDouble("Damage", 15);
                 originData.putDouble("knockback", 0);
                 originData.putDouble("Range", 8);
-                RangeAttackProcedure.execute(serverLevel, x, y, z, livingEntity);
-                List<LivingEntity> livingEntities = serverLevel.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(4));
+                RangeAttackProcedure.execute(level, x, y, z, livingEntity);
+                List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(livingEntity.blockPosition()).inflate(4));
                 for (LivingEntity entity : livingEntities) {
                     if (entity != livingEntity) {
                         entity.addEffect(new MobEffectInstance(SLOWNESS, 22, 9));
