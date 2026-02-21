@@ -93,7 +93,7 @@ dependencies {
     implementation("com.eliotlash.mclib:mclib:20")
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
     compileOnly fg.deobf("curse.maven:jjku-1014693:6157175")
-    compileOnly fg.deobf("curse.maven:jjsk-1128285:7450543")
+    compileOnly fg.deobf("curse.maven:jjsk-1128285:7605456")
     compileOnly fg.deobf("curse.maven:pehkui-319596:5393101")
     compileOnly fg.deobf("curse.maven:jujutsu-kaisen-gt-925091:5995392")
     compileOnly fg.deobf("curse.maven:jjkf-921955:5722931")

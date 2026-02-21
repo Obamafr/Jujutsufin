@@ -3,7 +3,6 @@ package com.obama.jujutsufin.mixins;
 import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import com.obama.jujutsufin.init.JujutsufinGameRules;
 import com.obama.jujutsufin.techniques.kaori.Kaori;
-import com.obama.jujutsufin.techniques.kashimo.Kashimo;
 import com.obama.jujutsufin.techniques.mechamaru.Mechamaru;
 import com.obama.jujutsufin.techniques.rozetsu.Rozetsu;
 import com.obama.jujutsufin.techniques.utahime.Utahime;
@@ -50,7 +49,6 @@ public class MixinKeyChangeTechniqueOnKeyPressed {
                     case 101 -> found = Rozetsu.execute(player, selected);
                     case 102 -> found = Kaori.execute(player, selected);
                     case 103 -> found = Mechamaru.execute(player, selected);
-                    case 7 -> found = Kashimo.execute(player, selected);
                     default -> {
                         return;
                     }
