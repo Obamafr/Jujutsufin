@@ -89,7 +89,7 @@ public class ServerCustomTechniquesPacket {
             cap.PlayerCurseTechnique = technique;
             cap.PlayerCurseTechnique2 = technique;
             cap.syncPlayerVariables(player);
-            SelectedProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player, SelectTechniqueMenu.guistate);
+            SelectedProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
             cap.PlayerCursePowerFormer = former;
             cap.PlayerCursePowerMAX = former * cap.PlayerLevel;
             cap.syncPlayerVariables(player);
