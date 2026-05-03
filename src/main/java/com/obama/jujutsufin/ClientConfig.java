@@ -18,14 +18,6 @@ public class ClientConfig
             .comment("Whether to hold or press Passive Hotkey")
             .define("holdPassiveHotkey", true);
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> OVERLAY_WIDTH = BUILDER
-            .comment("Width modifier for JujutsuCraft overlay")
-            .define("overlayWidth", 0);
-
-    public static final ForgeConfigSpec.ConfigValue<Integer> OVERLAY_HEIGHT = BUILDER
-            .comment("Height modifier for JujutsuCraft overlay")
-            .define("overlayHeight", 0);
-
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean DomainHotkeyHold;

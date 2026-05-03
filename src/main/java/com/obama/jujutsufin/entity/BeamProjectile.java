@@ -119,7 +119,7 @@ public class BeamProjectile extends AbstractHurtingProjectile {
             double y = beamProjectile.getY();
             double z = beamProjectile.getX();
             for (Entity entityIterator : world.getEntitiesOfClass(Entity.class, (new AABB(_center, _center)).inflate(range / 2))) {
-                boolean betrayal = LogicBetrayalProcedure.execute(beamProjectile.getOwner(), entityIterator);
+                boolean betrayal = LogicBetrayalProcedure.execute(beamProjectile.level(), beamProjectile.getOwner(), entityIterator);
                 if (beamProjectile != entityIterator || betrayal) {
                     if (LogicAttackProcedure.execute(world, beamProjectile.getOwner(), entityIterator) || betrayal) {
                         EffectConfirmProcedure.execute(world, x, y, z, beamProjectile.getOwner(), entityIterator);
