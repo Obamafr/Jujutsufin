@@ -41,26 +41,11 @@ public class ServerVeilSettingsButtonsPacket {
         Level world = player.level();
         if (world.hasChunkAt(player.blockPosition())) {
             switch (type) {
-                case 0: {
-                    setVeils(player, "P1");
-                    break;
-                }
-                case 1: {
-                    setVeils(player, "P2");
-                    break;
-                }
-                case 2: {
-                    setVeils(player, "P3");
-                    break;
-                }
-                case 3: {
-                    veilP4(player, -1);
-                    break;
-                }
-                case 4: {
-                    veilP4(player, 1);
-                    break;
-                }
+                case 0 -> setVeils(player, "P1");
+                case 1 -> setVeils(player, "P2");
+                case 2 -> setVeils(player, "P3");
+                case 3 -> veilP4(player, -1);
+                case 4 -> veilP4(player, 1);
             }
         }
     }

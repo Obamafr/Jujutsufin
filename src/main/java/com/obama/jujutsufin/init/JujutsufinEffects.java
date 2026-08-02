@@ -2,6 +2,8 @@ package com.obama.jujutsufin.init;
 
 import com.obama.jujutsufin.effects.*;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -15,5 +17,6 @@ public class JujutsufinEffects {
     public static final RegistryObject<MobEffect> BURNOUT = EFFECTS.register("burnout", BurnoutEffect::new);
     public static final RegistryObject<MobEffect> GRAVITY = EFFECTS.register("gravity", GravityEffect::new);
     public static final RegistryObject<MobEffect> ABSOLUTE = EFFECTS.register("absolute", ModeAbsolute::new);
-    public static final RegistryObject<MobEffect> JACKPOT = EFFECTS.register("jackpot", JackpotEffect::new);
+    public static final RegistryObject<MobEffect> EXHAUSTED = EFFECTS.register("exhausted", ExhaustedEffect::new);
+    public static final RegistryObject<MobEffect> ENDURE = EFFECTS.register("endure", EndureEffect::new);
 }

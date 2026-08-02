@@ -104,11 +104,33 @@ public final class JujutsufinKeybinds {
         public void setDown(boolean isDown) {
             super.setDown(isDown);
             if (this.wasDown != isDown && isDown) {
-                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedBurnoutPacket(true));
-                ServerPressedBurnoutPacket.keyPress(Minecraft.getInstance().player, true);
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedEffectPacket(true, 0));
+                ServerPressedEffectPacket.keyPress(Minecraft.getInstance().player, true, 0);
             } else if (this.wasDown != isDown) {
-                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedBurnoutPacket(false));
-                ServerPressedBurnoutPacket.keyPress(Minecraft.getInstance().player, false);
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedEffectPacket(false, 0));
+                ServerPressedEffectPacket.keyPress(Minecraft.getInstance().player, false, 0);
+            }
+            this.wasDown = isDown;
+        }
+    };
+    public final KeyMapping EndureKey = new KeyMapping(
+            Component.translatable("jujutsufin.keybinds.endure").getString(),
+            KeyConflictContext.IN_GAME,
+            InputConstants.getKey(InputConstants.KEY_COMMA, -1),
+            CATEGORY
+    )
+    {
+        private boolean wasDown = false;
+
+        @Override
+        public void setDown(boolean isDown) {
+            super.setDown(isDown);
+            if (this.wasDown != isDown && isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedEffectPacket(true, 1));
+                ServerPressedEffectPacket.keyPress(Minecraft.getInstance().player, true, 1);
+            } else if (this.wasDown != isDown) {
+                JujutsufinMod.PACKETHANDLER.sendToServer(new ServerPressedEffectPacket(false, 1));
+                ServerPressedEffectPacket.keyPress(Minecraft.getInstance().player, false, 1);
             }
             this.wasDown = isDown;
         }

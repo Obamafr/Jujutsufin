@@ -4,7 +4,6 @@ import com.obama.jujutsufin.JujutsufinMod;
 import com.obama.jujutsufin.techniques.kenjaku.KenjakuUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -36,13 +35,10 @@ public class ServerKenjakuGUIButtonPacket {
 
     public static void keyPress(Player player, int type) {
         if (player == null) return;
-        Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition())) {
-            if (type == 0) {
-                KenjakuUtils.deleteTechnique(player);
-            } else {
-                KenjakuUtils.moveGUI(player, type);
-            }
+        if (type == 0) {
+            KenjakuUtils.deleteTechnique(player);
+        } else {
+            KenjakuUtils.moveGUI(player, type);
         }
     }
 

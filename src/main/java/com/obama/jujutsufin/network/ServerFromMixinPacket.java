@@ -6,7 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -42,9 +41,7 @@ public class ServerFromMixinPacket {
 
     public static void keyPress(Player player, int type) {
         if (player == null) return;
-
-        Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition()) && player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             switch (type) {
                 case 2 -> NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
                         (id, inventory, mPlayer) -> getMenuFromType(3, id, inventory, mPlayer),

@@ -6,12 +6,9 @@ import net.mcreator.jujutsucraft.procedures.ReverseCursedTechniqueOnEffectActive
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.*;
 
-@Mixin(value = ReverseCursedTechniqueOnEffectActiveTickProcedure.class, priority = 1001) // Vazafila fuck you. overwrites are for tards (she's true y'know)
+@Mixin(value = ReverseCursedTechniqueOnEffectActiveTickProcedure.class, priority = 1001)
 public class MixinReverseCurseTechnique {
     @ModifyConstant(method = "execute", constant = @Constant(intValue = 20), remap = false)
     private static int changeFatigue(int constant, LevelAccessor world, double x, double y, double z, Entity entity) {
@@ -20,14 +17,17 @@ public class MixinReverseCurseTechnique {
         return (playerFatigue != 20 ? playerFatigue : gameRuleFatigue);
     }
 
-
-    @ModifyVariable(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getCapability(Lnet/minecraftforge/common/capabilities/Capability;Lnet/minecraft/core/Direction;)Lnet/minecraftforge/common/util/LazyOptional;", ordinal = 0), ordinal = 3, remap = false)
-    private static double changeCost(double amount, LevelAccessor world, double x, double y, double z, Entity entity) {
-        boolean CursedSpirit = entity.getPersistentData().getBoolean("CursedSpirit");
-        double fatigue = (CursedSpirit ? 5 : 10) / amount;
+    @ModifyConstant(method = "execute", constant = @Constant(doubleValue = 10), remap = false)
+    private static double changeCostN(double constant, LevelAccessor world, double x, double y, double z, Entity entity) {
         double playerCost = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).RCTCost;
         double gameRuleCost = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.RCTCost);
-        double newAmount = (playerCost != 10 ? playerCost : gameRuleCost);
-        return (CursedSpirit ? newAmount/2 : newAmount)/fatigue;
+        return (playerCost != 10 ? playerCost : gameRuleCost);
+    }
+
+    @ModifyConstant(method = "execute", constant = @Constant(doubleValue = 5), remap = false)
+    private static double changeCostC(double constant, LevelAccessor world, double x, double y, double z, Entity entity) {
+        double playerCost = entity.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).orElse(new JujutsufinPlayerCaps.PlayerCaps()).RCTCost;
+        double gameRuleCost = world.getLevelData().getGameRules().getInt(JujutsufinGameRules.RCTCost);
+        return (playerCost != 10 ? playerCost : gameRuleCost) / 2;
     }
 }

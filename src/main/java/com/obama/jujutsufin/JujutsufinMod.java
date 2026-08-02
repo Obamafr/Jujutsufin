@@ -60,6 +60,7 @@ public class JujutsufinMod
         JujutsufinEntities.ENTITIES.register(modEventBus);
         JujutsufinBlocks.BLOCKS.register(modEventBus);
         JujutsufinEntities.BLOCK_ENTITIES.register(modEventBus);
+        JujutsufinAttributes.ATTRIBUTES.register(modEventBus);
     }
 
     public static <T> void addPacket(Class<T> packet, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> handler) {
@@ -86,6 +87,7 @@ public class JujutsufinMod
             event.register(JujutsufinKeybinds.JFK.KenjakuOpenMenu);
             event.register(JujutsufinKeybinds.JFK.HollowWickerBasket);
             event.register(JujutsufinKeybinds.JFK.BurnoutKey);
+            event.register(JujutsufinKeybinds.JFK.EndureKey);
             event.register(JujutsufinKeybinds.JFK.DomainHotkey);
             event.register(JujutsufinKeybinds.JFK.PassiveHotkey);
             event.register(JujutsufinKeybinds.JFK.VeilHotkey);

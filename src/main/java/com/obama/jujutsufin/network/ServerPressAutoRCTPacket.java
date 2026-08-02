@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -33,8 +32,7 @@ public class ServerPressAutoRCTPacket {
 
     public static void keyPress(Player player) {
         if (player == null) return;
-        Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition()) && player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer) {
             CompoundTag data = player.getPersistentData();
             Advancement rct1 = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsucraft:reverse_cursed_technique_1"));
             if (rct1 != null && serverPlayer.getAdvancements().getOrStartProgress(rct1).isDone()) {

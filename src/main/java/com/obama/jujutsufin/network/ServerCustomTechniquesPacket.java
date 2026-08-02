@@ -5,11 +5,9 @@ import com.obama.jujutsufin.capabilities.JujutsufinPlayerCaps;
 import net.mcreator.jujutsucraft.network.JujutsucraftModVariables;
 import net.mcreator.jujutsucraft.procedures.ChangeCursedTechniqueRightClickedInAirProcedure;
 import net.mcreator.jujutsucraft.procedures.SelectedProcedure;
-import net.mcreator.jujutsucraft.world.inventory.SelectTechniqueMenu;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -41,46 +39,23 @@ public class ServerCustomTechniquesPacket {
 
     public static void keyPress(Player player, int type) {
         if (player == null) return;
-        Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition())) {
-            switch (type) {
-                case 0: {
-                    player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
-                        cap.CustomCT = 1;
-                        cap.KenjakuCopies.add(0, IntTag.valueOf(102));
-                        cap.syncPlayerCaps(player);
-                    });
-                    setTechnique(player, 102, 250);
-                    break;
-                }
-                case 1: {
-                    setTechnique(player, 100, 200);
-                    break;
-                }
-                case 5: {
-                    setTechnique(player, 101, 200);
-                    break;
-                }
-                case 2: {
-                    setTechnique(player, 102, 200);
-                    break;
-                }
-                case 6: {
-                    setTechnique(player, 103, 500);
-                    break;
-                }
-                case 3: {
-                    ChangeCursedTechniqueRightClickedInAirProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
-                    break;
-                }
-                case 4: {
-                    player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
-                        cap.CustomCT = 0;
-                        cap.syncPlayerCaps(player);
-                    });
-                    break;
-                }
+        switch (type) {
+            case 0 -> {
+                player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+                    cap.CustomCT = 1;
+                    cap.KenjakuCopies.add(0, IntTag.valueOf(102));
+                    cap.syncPlayerCaps(player);
+                });
+                setTechnique(player, 102, 250);
             }
+            case 1 -> setTechnique(player, 100, 200);
+            case 5 -> setTechnique(player, 101, 200);
+            case 2 -> setTechnique(player, 102, 200);
+            case 6 -> setTechnique(player, 103, 500);
+            case 3 -> ChangeCursedTechniqueRightClickedInAirProcedure.execute(player.level(), player.getX(), player.getY(), player.getZ(), player);
+            case 4 -> player.getCapability(JujutsufinPlayerCaps.PLAYER_CAPS, null).ifPresent(cap -> {
+                        cap.CustomCT = 0;
+                        cap.syncPlayerCaps(player); });
         }
     }
 

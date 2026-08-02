@@ -31,7 +31,6 @@
     "MixinUnstableEffect"
   ],
   "client": [
-    "MixinCheckboxes"
   ],
   "server": []
 }

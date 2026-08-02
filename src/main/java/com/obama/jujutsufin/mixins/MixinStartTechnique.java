@@ -28,12 +28,21 @@ public class MixinStartTechnique {
                     }
                 }
             }
+            if (used >= 8000) {
+                Advancement endure = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:endure"));
+                if (endure != null) {
+                    AdvancementProgress endureProgress = serverPlayer.getAdvancements().getOrStartProgress(endure);
+                    if (!endureProgress.isDone()) {
+                        endureProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(endure, c));
+                    }
+                }
+            }
             if (used >= 10000) {
                 Advancement hwb = serverPlayer.server.getAdvancements().getAdvancement(new ResourceLocation("jujutsufin:hwb"));
                 if (hwb != null) {
-                    AdvancementProgress veilProgress = serverPlayer.getAdvancements().getOrStartProgress(hwb);
-                    if (!veilProgress.isDone()) {
-                        veilProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(hwb, c));
+                    AdvancementProgress hwbProgress = serverPlayer.getAdvancements().getOrStartProgress(hwb);
+                    if (!hwbProgress.isDone()) {
+                        hwbProgress.getRemainingCriteria().forEach(c -> serverPlayer.getAdvancements().award(hwb, c));
                     }
                 }
             }

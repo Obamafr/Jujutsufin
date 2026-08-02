@@ -8,7 +8,6 @@ import net.mcreator.jujutsucraft.procedures.KeyChangeTechniqueOnKeyPressedProced
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyPressedProcedure;
 import net.mcreator.jujutsucraft.procedures.KeyStartTechniqueOnKeyReleasedProcedure;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,15 +49,12 @@ public class ServerHotkeyButtonsPacket {
 
     public static void keyPress(Player player, int type, boolean pressed) {
         if (player == null) return;
-        Level world = player.level();
-        if (world.hasChunkAt(player.blockPosition())) {
-            if (type == 1) {
-                DomainHotkey(player, pressed);
-            } else if (type == 2) {
-                PassiveHotkey(player, pressed);
-            } else if (type == 3) {
-                VeilHotkey(player, pressed);
-            }
+        if (type == 1) {
+            DomainHotkey(player, pressed);
+        } else if (type == 2) {
+            PassiveHotkey(player, pressed);
+        } else if (type == 3) {
+            VeilHotkey(player, pressed);
         }
     }
 
